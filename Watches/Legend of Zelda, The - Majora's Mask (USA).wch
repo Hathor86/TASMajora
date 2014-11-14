@@ -12,6 +12,7 @@ SystemID N64
 1EF71C	b	s	1	RDRAM	Powder keg
 1EF6A9	b	u	1	RDRAM	Magic
 1EF6A8	b	u	1	RDRAM	Magic stuff
+1EF68B	b	u	1	RDRAM	Current Day
 1EF67C	w	u	1	RDRAM	Time
 1EF6AE	w	u	1	RDRAM	Trucs
 1F065C	b	h	1	RDRAM	Lottery Day 1 - Digit 1
