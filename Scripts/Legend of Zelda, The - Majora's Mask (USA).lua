@@ -10,6 +10,9 @@ local internalSpeed = 0x3FFE20;
 local currentDay = 0x1EF68B;
 local igTime = 0x1EF67C;
 
+local bombsSlot = 0x1EF716;
+local magic = 0x1EF6A9;
+
 local oneSecond = 86400 / 65535; --Number of real seconds / IG seconds. FF FF (65535) is midnight
 local firstLine = 110;
 local spacing = 12;
@@ -99,20 +102,27 @@ local function clockDisplay()
 	gui.text(250, 3, string.format("%02.0f:%02.0f:%02.0f (day %i)", hour, math.floor(decimalMinutes * 60), (decimalMinutes * 60 - math.floor(decimalMinutes * 60)) * 60, memory.readbyte(currentDay)), _, _, "bottomleft");
 end
 
+--Display Items
+local function items()
+	gui.text(0, firstLine + spacing * 4, string.format("Bombs: %i", memory.readbyte(bombsSlot)));
+	
+	gui.text(80, firstLine - 23, memory.readbyte(magic));
+end
+
 --General UI call
 local function ui()
-	--init();
+	init();
 	codes();
 	coord();
 	speed();
 	clockDisplay();
+	items();
 end
 
 init();
 
 --Main loop
 while true do
-	--init();
 	ui();
 	emu.frameadvance();
 end

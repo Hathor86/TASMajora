@@ -15,6 +15,7 @@ SystemID N64
 1EF68B	b	u	1	RDRAM	Current Day
 1EF67C	w	u	1	RDRAM	Time
 1EF6AE	w	u	1	RDRAM	Trucs
+1EF6F2	b	u	1	RDRAM	Bottle 1 Slot
 1F065C	b	h	1	RDRAM	Lottery Day 1 - Digit 1
 1F065F	b	h	1	RDRAM	Lottery Day 2 - Digit 1
 1F0662	b	h	1	RDRAM	Lottery Day 3 - Digit 1
@@ -42,4 +43,5 @@ SystemID N64
 3FFE1C	d	f	1	RDRAM	Speed 2
 3FFE18	d	f	1	RDRAM	Speed 3
 3FFE20	d	f	1	RDRAM	Speed 4
+41DD70	w	u	1	RDRAM	Possible Bomb timer 1
 
