@@ -1,6 +1,8 @@
 MovementsHelper = {};
 MovementsHelper.cOcarina = "";
 
+MovementsHelper.ocarinaDelay = 15;
+
 MovementsHelper.Songs = {};
 MovementsHelper.Songs["SOT"] = {"Right", "A", "Down", "Right", "A", "Down"};
 MovementsHelper.Songs["SODT"] = {"Right", "Right", "A", "A", "Down", "Down"};
@@ -51,12 +53,12 @@ local function removeButton(button)
 end
 
 MovementsHelper.Z64FrameAdvance = function()
-	emu.frameadvance();
+	joypad.set(buttons, 1);
+	emu.frameadvance();	
 	joypad.set(buttons, 1);
 	emu.frameadvance();
 	joypad.set(buttons, 1);
 	emu.frameadvance();
-	joypad.set(buttons, 1);
 end
 
 MovementsHelper.PlaySong = function(songName)
@@ -66,9 +68,9 @@ MovementsHelper.PlaySong = function(songName)
 	else
 		setButton(MovementsHelper.cOcarina);
 		joypad.set(buttons, 1);
-		for i = 0, 16 do --15 seems to be the lesser limit  for link
+		for i = 0, MovementsHelper.ocarinaDelay do
 			MovementsHelper.Z64FrameAdvance();
-			removeButton(MovementsHelper.cOcarina);
+			--removeButton(MovementsHelper.cOcarina);
 		end
 		
 		for idx, button in ipairs(MovementsHelper.Songs[songName]) do
@@ -78,4 +80,33 @@ MovementsHelper.PlaySong = function(songName)
 			MovementsHelper.Z64FrameAdvance();
 		end
 	end
+end
+
+MovementsHelper.ReverseCameraAngle = function(saveStateSlot)
+	
+	savestate.loadslot(saveStateSlot);
+	
+	buttons["Z"] = true;
+	
+	joypad.set(buttons, 1);
+	MovementsHelper.Z64FrameAdvance();	
+	joypad.set(buttons, 1);
+	MovementsHelper.Z64FrameAdvance();	
+	joypad.set(buttons, 1);
+	MovementsHelper.Z64FrameAdvance();
+	
+	buttons["Z"] = false;
+	joypad.set(buttons, 1);
+	MovementsHelper.Z64FrameAdvance();
+	MovementsHelper.Z64FrameAdvance();
+	MovementsHelper.Z64FrameAdvance();
+	
+	gui.drawText(250, 250, "Set stick", _, 25);
+	emu.yield();
+	MovementsHelper.Z64FrameAdvance();
+	buttons["Z"] = true;
+	joypad.set(buttons, 1);
+	MovementsHelper.Z64FrameAdvance();
+	gui.drawText(250, 250, "Hold Z", _, 25);
+	
 end
