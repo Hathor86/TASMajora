@@ -1,6 +1,6 @@
 --MovementsHelper.cOcarina = "Left";
 --MovementsHelper.ocarinaDelay = 15;
 
---MovementsHelper.PlaySong("NWBN");
+--MovementsHelper.PlaySong("EOE");
 
-MovementsHelper.ReverseCameraAngle(1);
+MovementsHelper.ReverseCameraAngle(2);

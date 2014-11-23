@@ -63,15 +63,15 @@ end
 
 MovementsHelper.PlaySong = function(songName)
 
-	if(MovementsHelper.cOcarina == "") then
-		return nil;
-	else
-		setButton(MovementsHelper.cOcarina);
-		joypad.set(buttons, 1);
-		for i = 0, MovementsHelper.ocarinaDelay do
-			MovementsHelper.Z64FrameAdvance();
+	-- if(MovementsHelper.cOcarina == "") then
+		-- return nil;
+	-- else
+		-- setButton(MovementsHelper.cOcarina);
+		-- joypad.set(buttons, 1);
+		-- for i = 0, MovementsHelper.ocarinaDelay do
+			-- MovementsHelper.Z64FrameAdvance();
 			--removeButton(MovementsHelper.cOcarina);
-		end
+		-- end
 		
 		for idx, button in ipairs(MovementsHelper.Songs[songName]) do
 			setButton(button);
@@ -79,7 +79,7 @@ MovementsHelper.PlaySong = function(songName)
 			MovementsHelper.Z64FrameAdvance();
 			MovementsHelper.Z64FrameAdvance();
 		end
-	end
+	--end
 end
 
 MovementsHelper.ReverseCameraAngle = function(saveStateSlot)
