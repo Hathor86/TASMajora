@@ -1,5 +1,5 @@
 MovieVersion BizHawk v2.0.0
-rerecordCount 2392
+rerecordCount 2535
 Author Hâthor
 emuVersion Version 1.8.4
 Platform N64
