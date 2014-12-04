@@ -14,4 +14,4 @@ Reset -> +/- 600 frames
 32265 -> + dial
 31630 -> w/o dial (à l'arrache)
 
-12278
+15593
