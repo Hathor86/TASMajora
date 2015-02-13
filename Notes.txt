@@ -9,10 +9,16 @@ Reset -> +/- 600 frames
 State 1
 70
 100
-
+F3 -> Start hover
+F6 hover; can be higher
 30084 -> HMS skip
 31072 -> NO HMS skip
 32265 -> + dial
 31630 -> w/o dial (à l'arrache)
 
 22206
+
+Aliens => 2h30
+
+23564
+23522 - 3
