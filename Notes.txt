@@ -14,9 +14,7 @@ State 1
 31072 -> NO HMS skip
 32265 -> + dial
 31630 -> w/o dial (à l'arrache)
-
-31709
+32913
 
 Aliens => 2h30
 
-4 => angle
