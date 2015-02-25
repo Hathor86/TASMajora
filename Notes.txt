@@ -7,5 +7,5 @@ Room Key => 2h15 PM
 Aliens => 2h30 AM
 
 --- Drafts
-Sunmask skip => 1 bombchus 7chus 1 backflip
+Sunmask skip => 1 bomb 7chus 1 backflip
 37955
