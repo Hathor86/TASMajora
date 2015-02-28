@@ -5,7 +5,6 @@ Reset -> +/- 600 frames
 -- Misc
 Room Key => 2h15 PM
 Aliens => 2h30 AM
-
---- Drafts
 Sunmask skip => 1 bomb 7chus 1 backflip
-37955
+--- Drafts
+41485
