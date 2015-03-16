@@ -1,17 +1,10 @@
+-- Frames saved
 HMS Skip -> +/- 988 frames
 Reset -> +/- 600 frames
 
---- Cool frames
-33785
-33884
-
+-- Misc
+Room Key => 2h15 PM
+Aliens => 2h30 AM
+Sunmask skip => 1 bomb 7chus 1 backflip
 --- Drafts
-70
-100
-
-30084 -> HMS skip
-31072 -> NO HMS skip
-32265 -> + dial
-31630 -> w/o dial (à l'arrache)
-
-69575
+68990
