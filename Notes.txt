@@ -2,9 +2,12 @@
 HMS Skip -> +/- 988 frames
 Reset -> +/- 600 frames
 
+Cycle V1 => V2
+585
+
 -- Misc
 Room Key => 2h15 PM
 Aliens => 2h30 AM
 Sunmask skip => 1 bomb 7chus 1 backflip
 --- Drafts
-68990
+55788
