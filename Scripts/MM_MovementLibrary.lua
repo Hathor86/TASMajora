@@ -110,3 +110,23 @@ MovementsHelper.ReverseCameraAngle = function(saveStateSlot)
 	gui.drawText(250, 250, "Hold Z", _, 25);
 	
 end
+
+MovementsHelper.SetStickAngle = function(angle)
+
+	local r = math.pow(math.pow(joypad.get(1)["X Axis"], 2) + math.pow(joypad.get(1)["Y Axis"], 2), 0.5);
+	
+	local x = math.floor(r * math.cos(math.rad(angle)),0);	
+	local y = math.floor(r * math.sin(math.rad(angle)),0);
+	
+	buttons["X Axis"] = x;
+	buttons["Y Axis"] = y;
+	joypad.setanalog(buttons, 1);
+	emu.frameadvance();
+	joypad.setanalog(buttons, 1);
+end
+
+MovementsHelper.AddStickAngle = function(angle)
+	local x = joypad.get(1)["X Axis"];
+	local y = joypad.get(1)["Y Axis"];
+	MovementsHelper.SetStickAngle(math.deg(math.atan2(y,x) + math.rad(angle)));	
+end

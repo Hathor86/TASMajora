@@ -3,6 +3,9 @@ SystemID N64
 1F054C	d	s	1	RDRAM	Bank Rupies
 3FD4A4	d	s	1	RDRAM	Bank Rupies ?
 1EF6AA	w	s	1	RDRAM	Rupees
+1EF6BD	b	u	1	RDRAM	CLeft
+1EF6BE	b	u	1	RDRAM	CDown
+1EF6BF	b	u	1	RDRAM	CRight
 1EF711	b	s	1	RDRAM	Arrows
 1EF716	b	s	1	RDRAM	Bombs
 1EF717	b	s	1	RDRAM	Bombchus
@@ -44,4 +47,7 @@ SystemID N64
 3FFE18	d	f	1	RDRAM	Speed 3
 3FFE20	d	f	1	RDRAM	Speed 4
 41DD70	w	u	1	RDRAM	Possible Bomb timer 1
+1F99A4	d	u	1	RDRAM	Sos Value1
+1F99EC	d	u	1	RDRAM	Sos Value2
+1EF670	d	s	1	RDRAM	map
 

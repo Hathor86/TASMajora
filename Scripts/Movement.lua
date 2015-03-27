@@ -1,6 +1,9 @@
 --MovementsHelper.cOcarina = "Left";
 --MovementsHelper.ocarinaDelay = 15;
 
---MovementsHelper.PlaySong("EOE");
+--MovementsHelper.SetStickAngle(180);
+--MovementsHelper.AddStickAngle(180);
 
-MovementsHelper.ReverseCameraAngle(2);
+--MovementsHelper.PlaySong("SOT");
+
+--MovementsHelper.ReverseCameraAngle(1);
