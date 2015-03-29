@@ -7,20 +7,9 @@ Cycle V1 => V2
 
 -- Misc
 Resync: Add 1 frame before start - But hover fail
+Mountain village bridge shorter than by lake
 
 Room Key => 2h15 PM
 Aliens => 2h30 AM
 Sunmask skip => 1 bomb 7chus 1 backflip
 --- Drafts
-56412
-
-56874
-
-
-56814 56787 0 2 4 55296 ct
-24232
-
-	--gui.text(250,250,memory.read_s16_be(0x1F99A4));--sos value
-	--gui.text(250,300,memory.read_u16_be(0x1EF462));--map value
-	--gui.text(300,250,memory.read_u16_be(0x3FD622 ));--sos behavior
-	--gui.text(300,300,memory.read_u16_be(0x3FDC04 ));--inv screen
