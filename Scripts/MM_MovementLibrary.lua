@@ -4,18 +4,18 @@ MovementsHelper.cOcarina = "";
 MovementsHelper.ocarinaDelay = 15;
 
 MovementsHelper.Songs = {};
-MovementsHelper.Songs["SOT"] = {"Right", "A", "Down", "Right", "A", "Down"};
-MovementsHelper.Songs["SODT"] = {"Right", "Right", "A", "A", "Down", "Down"};
-MovementsHelper.Songs["SOH"] = {"Left", "Right", "Down", "Left", "Right", "Down"};
-MovementsHelper.Songs["SOE"] = {"Up", "Left", "Right", "Up", "Left", "Right"};
-MovementsHelper.Songs["SOS"] = {"Down", "Left", "Up", "Down", "Left", "Up"};
-MovementsHelper.Songs["SOST"] = {"A", "Down", "Up", "A", "Down", "Up"};
-MovementsHelper.Songs["SOA"] = {"Up", "Left", "Up", "Left", "A", "Right", "A"};
-MovementsHelper.Songs["GLI"] = {"A", "Right", "Left", "A", "Right", "Left"};
-MovementsHelper.Songs["GL"] = {"A", "Right", "Left", "A", "Right", "Left", "Right", "A"};
-MovementsHelper.Songs["NWBN"] = {"Left", "Up", "Left", "Right", "Down", "Left", "Right"};
-MovementsHelper.Songs["EOE"] = {"Right", "Left", "Right", "Down", "Right", "Up", "Left"};
-MovementsHelper.Songs["OOA"] = {"Right", "Down", "A", "Down", "Right", "Up"};
+MovementsHelper.Songs["SOT"] = {"Right", "A", "Down", "Right", "A", "Down"}; --Song Of time
+MovementsHelper.Songs["SODT"] = {"Right", "Right", "A", "A", "Down", "Down"}; -- Song of Double Time
+MovementsHelper.Songs["SOH"] = {"Left", "Right", "Down", "Left", "Right", "Down"}; -- Song Of Healing
+MovementsHelper.Songs["SOE"] = {"Up", "Left", "Right", "Up", "Left", "Right"}; -- Song Of Epona
+MovementsHelper.Songs["SOS"] = {"Down", "Left", "Up", "Down", "Left", "Up"}; -- Song Of Soaring
+MovementsHelper.Songs["SOST"] = {"A", "Down", "Up", "A", "Down", "Up"}; -- Song Of Storm
+MovementsHelper.Songs["SOA"] = {"Up", "Left", "Up", "Left", "A", "Right", "A"}; -- Sonata Of Awakening
+MovementsHelper.Songs["GLI"] = {"A", "Right", "Left", "A", "Right", "Left"}; -- Goron Lullaby Intro
+MovementsHelper.Songs["GL"] = {"A", "Right", "Left", "A", "Right", "Left", "Right", "A"}; -- Goron Lullaby
+MovementsHelper.Songs["NWBN"] = {"Left", "Up", "Left", "Right", "Down", "Left", "Right"}; -- New Wave Bossa Nova
+MovementsHelper.Songs["EOE"] = {"Right", "Left", "Right", "Down", "Right", "Up", "Left"}; -- Elegy Of Emptyness
+MovementsHelper.Songs["OOA"] = {"Right", "Down", "A", "Down", "Right", "Up"}; -- Oath Of Order
 
 local buttons = {};
 
@@ -72,7 +72,7 @@ MovementsHelper.PlaySong = function(songName)
 			-- MovementsHelper.Z64FrameAdvance();
 			--removeButton(MovementsHelper.cOcarina);
 		-- end
-		
+	
 		for idx, button in ipairs(MovementsHelper.Songs[songName]) do
 			setButton(button);
 			joypad.set(buttons, 1);
