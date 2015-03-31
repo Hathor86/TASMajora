@@ -120,6 +120,9 @@ MovementsHelper.SetStickAngle = function(angle)
 	
 	buttons["X Axis"] = x;
 	buttons["Y Axis"] = y;
+	gui.drawText(250, 250, string.format("X: %i - Y:%i", x, y), _, 25);
+	--console.log(string.format("X: %i - Y:%i", x, y));
+	emu.yield();
 	joypad.setanalog(buttons, 1);
 	emu.frameadvance();
 	joypad.setanalog(buttons, 1);

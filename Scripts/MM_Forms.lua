@@ -142,5 +142,6 @@ forms.destroyall();
 Load();
 while true do
 	codes();
+	emu.yield();
 	emu.frameadvance();
 end

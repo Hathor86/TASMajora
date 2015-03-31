@@ -37,7 +37,7 @@ local function coord()
 end
 
 local function speed()
-	gui.text(0, firstLine + spacing * 3, string.format("Internal speed: %.3f", memory.readfloat(internalSpeed, true)), _, _, "topright");
+	gui.text(0, firstLine + spacing * 3, string.format("Velocity: %.3f", memory.readfloat(internalSpeed, true)), _, _, "topright");
 end
 
 --Display accurate IG clock
@@ -61,6 +61,7 @@ local function stickAngle()
 	local x = buttons["X Axis"];
 	local y = buttons["Y Axis"];
 	gui.text(0, firstLine + spacing * 5, string.format("Stick Angle: %.2f°", math.deg(math.atan2(y,x))), _, _, "topright");
+	emu.yield();
 end
 
 --General UI call
