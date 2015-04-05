@@ -77,7 +77,7 @@ SystemID N64
 1EF70D	b	s	1	RDRAM	Mask 22 (Captain's Hat)
 1EF70E	b	s	1	RDRAM	Mask 23 (Giant Mask)
 1EF70F	b	s	1	RDRAM	Mask 24 (Fierce Deity's Mask)
-1F054E	w	u	1	RDRAM	Bank Rupies
+1F054E	w	u	1	RDRAM	Bank Rupees
 1EF6AA	w	s	1	RDRAM	Rupees
 1EF711	b	s	1	RDRAM	Arrows
 1EF716	b	s	1	RDRAM	Bombs
@@ -101,16 +101,34 @@ SystemID N64
 1F0716	w	u	1	RDRAM	Bottle 5 hot spring water timer
 1F071E	w	u	1	RDRAM	Bottle 6 hot spring water timer
 1F067F	b	h	1	RDRAM	Some stuff with dog race
-1F067D	b	h	1	RDRAM	Pause disabler
-1F0680	b	h	1	RDRAM	Button disabler
-1EF690	b	h	1	RDRAM	Current Mask Form
+40088B	b	s	1	RDRAM	ISG
+4008D9	b	u	1	RDRAM	Stick Lit
+1F067D	b	s	1	RDRAM	Pause disabler
+1F0680	b	s	1	RDRAM	Button disabler
+1EF690	b	s	1	RDRAM	Current Mask Form
+3E87C3	b	s	1	RDRAM	Lens of Truth On/Off Switch
+3E87C4	b	s	1	RDRAM	Lens OfTtruth radius
 1F0684	b	s	1	RDRAM	Rock sirloin next zone
+3FF395	b	h	1	RDRAM	Warp setter
+3FF39A	w	u	1	RDRAM	Exit Setter
 3FFDD4	d	f	1	RDRAM	X position
 3FFDD8	d	f	1	RDRAM	Y position
 3FFDDC	d	f	1	RDRAM	Z position
-3FFE14	d	f	1	RDRAM	Speed 1
-3FFE1C	d	f	1	RDRAM	Speed 2
-3FFE18	d	f	1	RDRAM	Speed 3
-3FFE20	d	f	1	RDRAM	Speed 4
-40088B	b	s	1	RDRAM	ISG
+3FFE6E	d	f	1	RDRAM	Angle
+3FFE14	d	f	1	RDRAM	X-Velocity
+3FFE18	d	f	1	RDRAM	Y-Velocity
+3FFE1C	d	f	1	RDRAM	Z-Velocity
+3FFE20	d	f	1	RDRAM	Overall Velocity
+3FDA91	b	s	1	RDRAM	Soar Cursor
+400910	b	s	1	RDRAM	Blast Mask Enable
+400911	b	u	1	RDRAM	Blast Mask Timer
+3FFDF5	b	u	1	RDRAM	C-Up - Horizontal Axis Position
+3FFDF4	b	u	1	RDRAM	C-Up - Vertical Axis Position
+40F907	b	u	1	RDRAM	Eyegore Health
+416927	b	h	1	RDRAM	Odolwa Health
+416FD7	b	u	1	RDRAM	Goth Health
+416567	b	h	1	RDRAM	Gyorg Health
+41CAE7	b	u	1	RDRAM	Blue Twinmold Helath
+22A138	w	u	1	RDRAM	Camera 1 (Unknow stuff)
+24A448	w	u	1	RDRAM	Camera 2 (Unknow stuff)
 
