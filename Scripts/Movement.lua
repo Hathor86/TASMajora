@@ -2,8 +2,8 @@
 --MovementsHelper.ocarinaDelay = 15;
 
 --MovementsHelper.SetStickAngle(180);
-MovementsHelper.AddStickAngle(90);
+--MovementsHelper.AddStickAngle(180);
 
---MovementsHelper.PlaySong("SOT");
+--MovementsHelper.PlaySong("SOS");
 
---MovementsHelper.ReverseCameraAngle(1);
+MovementsHelper.ReverseCameraAngle(3);

@@ -1,51 +1,83 @@
 AdditionalWindows = {};
 
-AdditionalWindows.currentDay = 0x1EF68B;
-
-local skutullaCode1stByte = 0x1F0665;
-local bombersCode1stByte = 0x1F066B;
-local lotteryCode1stByte = 0x1F065F;
-
 local bombersCode = "";
 local skulltullaCode = "";
 local lotteryCodes = {};
 
-local handles = {};
-local editTextBox = {};
+local editBoxes = {};
 
 local editMode = true;
+
+-- EditableValue class
+local EditableValue = 
+{
+	formHandle = 0;
+	labelHandle = 0;
+	textBoxHandle = 0;
+};
+--EditableValue cTor
+function EditableValue:new (form, x, y, text, value)
+	o = {};
+	setmetatable(o, self);
+	self.__index = self;
+	
+	o.formHandle = form;
+	o.labelHandle = forms.label(o.formHandle, string.format("%s: %s", text, value), x, y, 125, 20, false);
+	o.textBoxHandle = forms.textbox(o.formHandle, value, 75, 20, _, x + 125, y);
+	return o;
+end
+
+
 
 --Load values
 local function Load()
 
 	bombersCode = "";
 	for i = 0, 4 do
-		bombersCode = string.format("%s%s", bombersCode, memory.readbyte(bombersCode1stByte + i));
+		bombersCode = string.format("%s%s", bombersCode, memory.readbyte(MM.Watch.Inventory.Quests.BombersCode1stByte + i));
 	end
 	
 	skulltullaCode = "";
 	for i = 0, 5 do
-		skulltullaCode = string.format("%s%s", skulltullaCode, memory.readbyte(skutullaCode1stByte + i));
+		skulltullaCode = string.format("%s%s", skulltullaCode, memory.readbyte(MM.Watch.Inventory.Quests.SkutullaCode1stByte + i));
 	end
 
 	local k = 0;
 	for i = 0, 2 do
 		lotteryCodes[i] = "";
 		for j = 0, 2 do
-			lotteryCodes[i] = string.format("%s%s", lotteryCodes[i], memory.readbyte(lotteryCode1stByte + k));
+			lotteryCodes[i] = string.format("%s%s", lotteryCodes[i], memory.readbyte(MM.Watch.Inventory.Quests.LotteryCode1stByte + k));
 			k = k + 1;
 		end
 		k = k + 1;
 	end
 end
 
+--Replace values
 local function SetValues()
-	for key, handle in pairs(editTextBox) do
+	for key, handle in pairs(editBoxes) do
 		
 		if key == "bombers" then
-			local newcode = forms.gettext(handle);
-			for i = 1, #newcode do
-				memory.writebyte(bombersCode1stByte + i - 1, tonumber(newcode:sub(i,i)));
+			local newcode = forms.gettext(handle.textBoxHandle);
+			for i = 0, 4 do
+				memory.writebyte(MM.Watch.Inventory.Quests.LotteryCode1stByte.BombersCode1stByte + i, tonumber(string.sub(newcode,i + 1,i + 1)));
+			end
+		end
+		
+		if key == "skulltula" then
+			local newcode = forms.gettext(handle.textBoxHandle);
+			for i = 0, 5 do
+				memory.writebyte(MM.Watch.Inventory.Quests.LotteryCode1stByte.SkutullaCode1stByte + i, tonumber(string.sub(newcode,i + 1,i + 1)));
+			end
+		end
+		
+		if key == "lottery" then
+			if currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3 then
+				local newcode = forms.gettext(handle.textBoxHandle);
+				local currentDayValue = memory.readbyte(MM.Watch.Status.CurrentDay);
+				for i = 0, 2 do
+					memory.writebyte(MM.Watch.Inventory.Quests.LotteryCode1stByte.LotteryCode1stByte + (currentDayValue - 1) * 3 + i, tonumber(string.sub(newcode,i + 1,i + 1)));
+				end
 			end
 		end
 		
@@ -56,9 +88,48 @@ end
 local function switchMode()
 	editMode = not editMode;
 	
-	for key, handle in pairs(editTextBox) do
-		forms.setproperty(handle, "Enabled", editMode);
+	for key, handle in pairs(editBoxes) do
+		forms.setproperty(handle.textBoxHandle, "Enabled", editMode);
 	end
+end
+
+local function Test()
+	local f = assert(io.open("test.pgm", "w"));
+	 --320x227
+	 --local header = {0x42 ,0x4d ,0xb6 ,0x23 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x3e ,0x00 ,0x00 ,0x00 ,0x28 ,0x00 ,0x00 ,0x00 ,0x40 ,0x01 ,0x00 ,0x00 ,0xe3 ,0x00 ,0x00 ,0x00 ,0x01 ,0x00 ,0x01 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x78 ,0x23 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00};
+	 --f:write(string.char(unpack(header)));
+	f:write("P2\n");
+	f:write("# CREATOR: GIMP PNM Filter Version 1.1\n");
+	f:write("320 227\n");
+	f:write("255\n");
+	local j = 0;
+	for i = 0, 11201 do --Picture is 11200 length
+		--f:write(string.char(memory.readbyte(0x1F0750 + i)));
+		--f:write(memory.readbyte(0x1F0750 + i).."\n");
+		if j == 0 then
+			memory.writebyte(0x1F0750 + i,0x00);
+		end
+		if j == 1 then
+			memory.writebyte(0x1F0750 + i,0x3F);
+		end
+		if j == 2 then
+			memory.writebyte(0x1F0750 + i,0x3F);
+		end
+		if j == 3 then
+			memory.writebyte(0x1F0750 + i,0x3F);
+		end
+		--[[if j == 4 then
+			memory.writebyte(0x1F0750 + i,0x00);
+			j = 0;
+		end]]
+		if j == 2 then
+			j = 0;
+		else
+			j = j + 1;
+		end
+		--memory.writebyte(0x1F0750 + i,0x3F);
+	end
+	f:close();
 end
 
 AdditionalWindows.InitAdvancedConrols = function()
@@ -67,23 +138,19 @@ AdditionalWindows.InitAdvancedConrols = function()
 
 	local handle = forms.label(form, "Song Player", 0, 0, 75, 15, false);
 	handle = forms.dropdown(form, {"SOT" ,"SODT", "SOH", "SOE", "SOS", "SOST", "SOA", "GLI", "GL", "NWBN", "EOE", "OOA"}, 0, 15, 50,15);
-	--console.log(forms.getproperty(handle,"Position"));
-	forms.button(form, "Click Me!", _, 50, 15, 75, 25);
+	forms.button(form, "Click Me!", Test, 50, 15, 75, 25);
 end
 
 AdditionalWindows.InitWatches = function()
 	local form = forms.newform(400, 400, "Watches");
-	handles["bombers"] = forms.label(form, string.format("Bombers Code: %s", bombersCode), 0, 0, 125, 20, false);
-	handles["skulltula"] = forms.label(form, string.format("Skulltula Code : %s", skulltullaCode), 0, 20, 125, 20, false);
-	handles["lottery"] = forms.label(form, string.format("Lottery Code : %s", lotteryCodes[0]), 0, 40, 125, 20, false);
 	
-	editTextBox["bombers"] = forms.textbox(form, bombersCode, 75, 20, _, 125, 0);
-	editTextBox["skulltula"] = forms.textbox(form, skulltullaCode, 75, 20, _, 125, 20);
-	editTextBox["lottery"] = forms.textbox(form, lotteryCodes[0], 75, 20, _, 125, 40);
+	editBoxes["bombers"] = EditableValue:new(form, 0, 0, "Bombers Code", bombersCode);
+	editBoxes["skulltula"] = EditableValue:new(form, 0, 20, "Skulltula Code", skulltullaCode);
+	editBoxes["lottery"] = EditableValue:new(form, 0, 40, "Lottery Code", lotteryCodes[0]);	
 	
-	forms.button(form, "Test2", SetValues, 0 ,300);
+	forms.button(form, "Set !", SetValues, 0 ,300);
 	
-	switchMode();
+	--switchMode();
 end
 
 --Update the lottery code
@@ -122,26 +189,32 @@ local function codes()
 	end
 	--gui.text(0, firstLine + spacing, string.format("Skulltula Code (%s jumps):", jumpCount));]]
 	
-	if handles["bombers"] ~= nil then
-		forms.setproperty(handles["bombers"], "Text", string.format("Bombers Code: %s", bombersCode));
+	if editBoxes["bombers"].labelHandle ~= nil then
+		forms.setproperty(editBoxes["bombers"].labelHandle, "Text", string.format("Bombers Code: %s", bombersCode));
 	end
 	
-	if handles["skulltula"] ~= nil then
-		forms.setproperty(handles["skulltula"], "Text", string.format("Skulltula Code : %s", skulltullaCode));
+	if editBoxes["skulltula"].labelHandle ~= nil then
+		forms.setproperty(editBoxes["skulltula"].labelHandle, "Text", string.format("Skulltula Code : %s", skulltullaCode));
 	end
 	
-	local currentDayValue = memory.readbyte(AdditionalWindows.currentDay);
-	if handles["lottery"] ~= nil then
+	local currentDayValue = memory.readbyte(MM.Watch.Status.CurrentDay);
+	if editBoxes["lottery"].labelHandle ~= nil then
 		if currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3 then
-			forms.setproperty(handles["lottery"], "Text", string.format("Lottery code: %s", lotteryCodes[currentDayValue - 1]));
+			forms.setproperty(editBoxes["lottery"].labelHandle, "Text", string.format("Lottery code: %s", lotteryCodes[currentDayValue - 1]));
 		end
 	end
 end
 
 forms.destroyall();
 Load();
+AdditionalWindows.InitWatches();
+AdditionalWindows.InitAdvancedConrols();
+--Load();
+
+--AdditionalWindows.InitWatches();
+--[[
 while true do
 	codes();
-	emu.yield();
-	emu.frameadvance();
-end
+	--emu.yield();
+	--emu.frameadvance();
+end]]
