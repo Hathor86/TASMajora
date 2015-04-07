@@ -30,7 +30,7 @@ SystemID N64
 1F066B	b	h	1	RDRAM	Bombers code digit 1
 1F0750	b	h	1	RDRAM	Picture 1st Byte
 1EF6E0	b	s	1	RDRAM	Slot 0 (Ocarina)
-1EF6E1	b	s	1	RDRAM	Slot 1 (Fairy Bow)
+1EF6E1	b	s	1	RDRAM	Slot 1 (Hero's Bow)
 1EF6E2	b	s	1	RDRAM	Slot 2 (Fire Arrow)
 1EF6E3	b	s	1	RDRAM	Slot 3 (Ice Arrow)
 1EF6E4	b	s	1	RDRAM	Slot 4 (Light Arrow)
@@ -114,7 +114,7 @@ SystemID N64
 3FFDD4	d	f	1	RDRAM	X position
 3FFDD8	d	f	1	RDRAM	Y position
 3FFDDC	d	f	1	RDRAM	Z position
-3FFE6E	d	f	1	RDRAM	Angle
+3FFE6E	d	f	1	RDRAM	Angle ?
 3FFE14	d	f	1	RDRAM	X-Velocity
 3FFE18	d	f	1	RDRAM	Y-Velocity
 3FFE1C	d	f	1	RDRAM	Z-Velocity

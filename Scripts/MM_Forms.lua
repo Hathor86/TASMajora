@@ -28,7 +28,6 @@ function EditableValue:new (form, x, y, text, value)
 end
 
 
-
 --Load values
 local function Load()
 
@@ -57,22 +56,22 @@ end
 local function SetValues()
 	for key, handle in pairs(editBoxes) do
 		
-		if key == "bombers" then
+		if (key == "bombers") then
 			local newcode = forms.gettext(handle.textBoxHandle);
 			for i = 0, 4 do
 				memory.writebyte(MM.Watch.Inventory.Quests.LotteryCode1stByte.BombersCode1stByte + i, tonumber(string.sub(newcode,i + 1,i + 1)));
 			end
 		end
 		
-		if key == "skulltula" then
+		if (key == "skulltula") then
 			local newcode = forms.gettext(handle.textBoxHandle);
 			for i = 0, 5 do
 				memory.writebyte(MM.Watch.Inventory.Quests.LotteryCode1stByte.SkutullaCode1stByte + i, tonumber(string.sub(newcode,i + 1,i + 1)));
 			end
 		end
 		
-		if key == "lottery" then
-			if currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3 then
+		if (key == "lottery") then
+			if (currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3) then
 				local newcode = forms.gettext(handle.textBoxHandle);
 				local currentDayValue = memory.readbyte(MM.Watch.Status.CurrentDay);
 				for i = 0, 2 do
@@ -80,9 +79,7 @@ local function SetValues()
 				end
 			end
 		end
-		
 	end
-	Load();
 end
 
 local function switchMode()
@@ -150,7 +147,7 @@ AdditionalWindows.InitWatches = function()
 	
 	forms.button(form, "Set !", SetValues, 0 ,300);
 	
-	--switchMode();
+	switchMode();
 end
 
 --Update the lottery code
@@ -189,32 +186,25 @@ local function codes()
 	end
 	--gui.text(0, firstLine + spacing, string.format("Skulltula Code (%s jumps):", jumpCount));]]
 	
-	if editBoxes["bombers"].labelHandle ~= nil then
+	if (editBoxes["bombers"].labelHandle ~= nil) then
 		forms.setproperty(editBoxes["bombers"].labelHandle, "Text", string.format("Bombers Code: %s", bombersCode));
 	end
 	
-	if editBoxes["skulltula"].labelHandle ~= nil then
+	if (editBoxes["skulltula"].labelHandle ~= nil) then
 		forms.setproperty(editBoxes["skulltula"].labelHandle, "Text", string.format("Skulltula Code : %s", skulltullaCode));
 	end
 	
 	local currentDayValue = memory.readbyte(MM.Watch.Status.CurrentDay);
-	if editBoxes["lottery"].labelHandle ~= nil then
-		if currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3 then
+	if (editBoxes["lottery"].labelHandle ~= nil) then
+		if (currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3) then
 			forms.setproperty(editBoxes["lottery"].labelHandle, "Text", string.format("Lottery code: %s", lotteryCodes[currentDayValue - 1]));
 		end
 	end
 end
 
-forms.destroyall();
-Load();
-AdditionalWindows.InitWatches();
-AdditionalWindows.InitAdvancedConrols();
---Load();
-
---AdditionalWindows.InitWatches();
---[[
-while true do
+AdditionalWindows.Refresh = function()
+	 Load();
 	codes();
-	--emu.yield();
-	--emu.frameadvance();
-end]]
+end
+
+Load();
