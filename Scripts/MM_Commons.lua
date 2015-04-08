@@ -36,6 +36,8 @@ MM.Watch =
 			,Bottle5 = 0
 			,Bottle6 = 0
 		}
+		,ItemsBySlotID = 
+		{}
 		,Masks = 
 		{
 			Postman = 0x1EF6F8
@@ -63,6 +65,7 @@ MM.Watch =
 			,Giant = 0
 			,FierceDeity = 0
 		}
+		,MasksBySlotId = {}
 		-- HP, Songs, Remains,....
 		,Quests = 
 		{
@@ -109,6 +112,13 @@ for key, value in pairs(MM.Watch.Inventory.Items) do
 	end
 	tmp = tmp + 1;
 end
+for i = 0, 23 do
+	if i == 0 then
+		MM.Watch.Inventory.ItemsBySlotID[i] = MM.Watch.Inventory.Items.Ocarina;
+	else
+		MM.Watch.Inventory.ItemsBySlotID[i] = MM.Watch.Inventory.ItemsBySlotID[i - 1] + 1;
+	end
+end
 tmp = 0;
 for key, value in pairs(MM.Watch.Inventory.Masks) do
 	if (tmp == 0) then
@@ -118,6 +128,13 @@ for key, value in pairs(MM.Watch.Inventory.Masks) do
 		value = tmp;
 	end
 	tmp = tmp + 1;
+end
+for i = 0, 23 do
+	if i == 0 then
+		MM.Watch.Inventory.MasksBySlotId[i] = MM.Watch.Inventory.Masks.Postman;
+	else
+		MM.Watch.Inventory.MasksBySlotId[i] = MM.Watch.Inventory.MasksBySlotId[i - 1] + 1;
+	end
 end
 
 --Fill the dictionnary
