@@ -50,7 +50,7 @@ end
 
 --Display Items
 local function items()
-	gui.text(0, firstLine + spacing * 4, string.format("Bombs: %i", memory.readbyte(bombsSlot)));	
+	gui.text(0, firstLine + spacing * 4, string.format("Bombs: %i", memory.readbyte(bombsSlot)));
 	gui.text(80, firstLine - 35, memory.readbyte(magic));	
 	gui.text(0, 0, string.format("Cleft: %i cDown:%i cRight:%i", memory.readbyte(cLeft), memory.readbyte(cDown), memory.readbyte(cRight)), _, _, "topright");
 end

@@ -3,9 +3,10 @@ AdditionalWindows = {};
 local bombersCode = "";
 local skulltullaCode = "";
 local lotteryCodes = {};
+local health = "";
+local maxHealth = "";
 
 local refreshList = {};
-
 local editBoxes = {};
 
 local editMode = true;
@@ -16,9 +17,10 @@ local EditableValue =
 	formHandle = 0;
 	labelHandle = 0;
 	textBoxHandle = 0;
+	text = 0;
 };
 function EditableValue:new (form, x, y, text, value, width) --Constructor
-	o = {};
+	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
 	
@@ -26,12 +28,15 @@ function EditableValue:new (form, x, y, text, value, width) --Constructor
 		width = 125;
 	end
 	o.formHandle = form;
+	o.text = text;
 	o.labelHandle = forms.label(o.formHandle, string.format("%s: %s", text, value), x, y, width, 20, false);
-	o.textBoxHandle = forms.textbox(o.formHandle, value, 75, 20, _, x + width, y);
+	o.textBoxHandle = forms.textbox(o.formHandle, value, 50, 20, _, x + width, y);
 	
 	return o;
 end
-
+function EditableValue:refresh(value)
+	forms.setproperty(self.labelHandle, "Text", string.format("%s: %s", self.text, value));
+end
 -- EditableItem Class
 local EditableItem = 
 {
@@ -40,9 +45,12 @@ local EditableItem =
 	itemLabelHandle = 0;
 	dropDownHandle = 0;
 	Height = 50;
+	ammoLabel = 0;
+	ammoEditHandle = 0;
+	ammoWatchAddress = 0;
 };
 function EditableItem:new(form, x, y, slotID) --Constructor
-	o = {};
+	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
 	
@@ -52,6 +60,34 @@ function EditableItem:new(form, x, y, slotID) --Constructor
 	o.itemLabelHandle = forms.label(o.formHandle, "Current:", x, y + 13, 125, 13, false);
 	o.dropDownHandle = forms.dropdown(form, MM.Dictionnary.Items, x, y + 26);
 	
+	if(o.slotID == memory.readbyte(MM.Watch.Inventory.Items.HeroBow)
+	or o.slotID == memory.readbyte(MM.Watch.Inventory.Items.Bomb)
+	or o.slotID == memory.readbyte(MM.Watch.Inventory.Items.Bombchu)
+	or o.slotID == memory.readbyte(MM.Watch.Inventory.Items.DekuStick)
+	or o.slotID == memory.readbyte(MM.Watch.Inventory.Items.DekuNut)
+	or o.slotID == memory.readbyte(MM.Watch.Inventory.Items.MagicBean)
+	or o.slotID == memory.readbyte(MM.Watch.Inventory.Items.PowderKeg)
+	) then
+		if (o.slotID == memory.readbyte(MM.Watch.Inventory.Items.HeroBow)) then
+			o.ammoWatchAddress = MM.Watch.Ammo.Arrows;
+		elseif (o.slotID == memory.readbyte(MM.Watch.Inventory.Items.Bomb)) then
+			o.ammoWatchAddress = MM.Watch.Ammo.Bombs;
+		elseif (o.slotID == memory.readbyte(MM.Watch.Inventory.Items.Bombchu)) then
+			o.ammoWatchAddress = MM.Watch.Ammo.Bombchus;
+		elseif (o.slotID == memory.readbyte(MM.Watch.Inventory.Items.DekuStick)) then
+			o.ammoWatchAddress = MM.Watch.Ammo.DekuSticks;
+		elseif (o.slotID == memory.readbyte(MM.Watch.Inventory.Items.DekuNut)) then
+			o.ammoWatchAddress = MM.Watch.Ammo.DekuNuts;
+		elseif (o.slotID == memory.readbyte(MM.Watch.Inventory.Items.MagicBean)) then
+			o.ammoWatchAddress = MM.Watch.Ammo.MagicBeans;
+		elseif (o.slotID == memory.readbyte(MM.Watch.Inventory.Items.PowderKeg)) then
+			ammoWatchAddress = MM.Watch.Ammo.PowderKegs;
+		end
+		o.ammoLabel = forms.label(o.formHandle, "", x + 40, y, 55, 13, false);
+		forms.setproperty(o.ammoLabel, "Text", string.format("Ammo: %s", memory.readbyte(o.ammoWatchAddress)));
+		o.ammoEditHandle = forms.textbox(o.formHandle, memory.readbyte(o.ammoWatchAddress), 20, 20, _, x + 95, y - 1);
+	end
+	
 	return o;
 end
 function EditableItem:refresh() --Refresh method. We read the values in memory and update the label
@@ -59,6 +95,9 @@ function EditableItem:refresh() --Refresh method. We read the values in memory a
 		forms.setproperty(self.itemLabelHandle, "Text", string.format("Current: %s", MM.Dictionnary.Items[memory.readbyte(MM.Watch.Inventory.ItemsBySlotID[self.slotID])]));
 	elseif self.slotID <= 47 then
 		forms.setproperty(self.itemLabelHandle, "Text", string.format("Current: %s", MM.Dictionnary.Items[memory.readbyte(MM.Watch.Inventory.MasksBySlotId[self.slotID - 24])]));
+	end
+	if self.ammoLabel ~= 0 then
+		forms.setproperty(self.ammoLabel, "Text", string.format("Ammo: %s", memory.readbyte(self.ammoWatchAddress)));
 	end
 end
 
@@ -84,6 +123,9 @@ local function Load()
 		end
 		k = k + 1;
 	end
+	
+	health = memory.read_s16_be(MM.Watch.Link.Health);
+	maxHealth = memory.read_s16_be(MM.Watch.Inventory.Quests.HeartContainer);
 end
 
 --Write edited values into memory
@@ -114,6 +156,7 @@ local function SetValues()
 					end
 				end
 			end
+		
 		end
 	end
 end
@@ -131,55 +174,18 @@ local function switchMode()
 	
 	for _, item in pairs(refreshList) do 
 		forms.setproperty(item.dropDownHandle, "Enabled", editMode);
+		forms.setproperty(item.ammoEditHandle, "Enabled", editMode);
 	end
 end
 
-local function Test()
-	local f = assert(io.open("test.pgm", "w"));
-	 --320x227
-	 --local header = {0x42 ,0x4d ,0xb6 ,0x23 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x3e ,0x00 ,0x00 ,0x00 ,0x28 ,0x00 ,0x00 ,0x00 ,0x40 ,0x01 ,0x00 ,0x00 ,0xe3 ,0x00 ,0x00 ,0x00 ,0x01 ,0x00 ,0x01 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x78 ,0x23 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00 ,0x00};
-	 --f:write(string.char(unpack(header)));
-	f:write("P2\n");
-	f:write("# CREATOR: GIMP PNM Filter Version 1.1\n");
-	f:write("320 227\n");
-	f:write("255\n");
-	local j = 0;
-	for i = 0, 11201 do --Picture is 11200 length
-		--f:write(string.char(memory.readbyte(0x1F0750 + i)));
-		--f:write(memory.readbyte(0x1F0750 + i).."\n");
-		if j == 0 then
-			memory.writebyte(0x1F0750 + i,0x00);
-		end
-		if j == 1 then
-			memory.writebyte(0x1F0750 + i,0x3F);
-		end
-		if j == 2 then
-			memory.writebyte(0x1F0750 + i,0x3F);
-		end
-		if j == 3 then
-			memory.writebyte(0x1F0750 + i,0x3F);
-		end
-		--[[if j == 4 then
-			memory.writebyte(0x1F0750 + i,0x00);
-			j = 0;
-		end]]
-		if j == 2 then
-			j = 0;
-		else
-			j = j + 1;
-		end
-		--memory.writebyte(0x1F0750 + i,0x3F);
-	end
-	f:close();
-end
 
-AdditionalWindows.InitAdvancedConrols = function()
+--[[AdditionalWindows.InitAdvancedConrols = function()
 	local form = forms.newform(200, 200, "Controls");
 
 	local handle = forms.label(form, "Song Player", 0, 0, 75, 15, false);
 	handle = forms.dropdown(form, {"SOT" ,"SODT", "SOH", "SOE", "SOS", "SOST", "SOA", "GLI", "GL", "NWBN", "EOE", "OOA"}, 0, 15, 50,15);
-	forms.button(form, "Click Me!", Test, 50, 15, 75, 25);
-end
+	forms.button(form, "Click Me!", _, 50, 15, 75, 25);
+end]]
 
 AdditionalWindows.InitWatches = function()
 	local form = forms.newform(800, 800, "Watches");
@@ -187,6 +193,9 @@ AdditionalWindows.InitWatches = function()
 	editBoxes["bombers"] = EditableValue:new(form, 0, 0, "Bombers Code", bombersCode);
 	editBoxes["skulltula"] = EditableValue:new(form, 0, 20, "Skulltula Code", skulltullaCode);
 	editBoxes["lottery"] = EditableValue:new(form, 0, 40, "Lottery Code", lotteryCodes[0]);
+	
+	editBoxes["health"] = EditableValue:new(form, 200, 0, "Current health", health, 100);
+	editBoxes["maxHealth"] = EditableValue:new(form, 200, 20, "Heart container", maxHealth / 16, 100);
 	
 	forms.label(form, "Inventory", 0, 80, 60, 20, false);
 	local tmp;
@@ -219,7 +228,7 @@ AdditionalWindows.InitWatches = function()
 end
 
 --Update the lottery code
-local function codes()
+local function Values()
 	--local color = "white";
 	--local tab = "";
 	--local jumpCount = 0;
@@ -254,19 +263,17 @@ local function codes()
 	end
 	--gui.text(0, firstLine + spacing, string.format("Skulltula Code (%s jumps):", jumpCount));]]
 	
-	if (editBoxes["bombers"].labelHandle ~= nil) then
-		forms.setproperty(editBoxes["bombers"].labelHandle, "Text", string.format("Bombers Code: %s", bombersCode));
-	end
-	if (editBoxes["skulltula"].labelHandle ~= nil) then
-		forms.setproperty(editBoxes["skulltula"].labelHandle, "Text", string.format("Skulltula Code : %s", skulltullaCode));
-	end
+	editBoxes["bombers"]:refresh(bombersCode);
+	editBoxes["skulltula"]:refresh(skulltullaCode);
 	
 	local currentDayValue = memory.readbyte(MM.Watch.Status.CurrentDay);
-	if (editBoxes["lottery"].labelHandle ~= nil) then
-		if (currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3) then
-			forms.setproperty(editBoxes["lottery"].labelHandle, "Text", string.format("Lottery code: %s", lotteryCodes[currentDayValue - 1]));
-		end
+	if (currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3) then
+		editBoxes["lottery"]:refresh(lotteryCodes[currentDayValue - 1]);
 	end
+	
+	editBoxes["health"]:refresh(health);
+	editBoxes["maxHealth"]:refresh(maxHealth);
+	
 end
 
 AdditionalWindows.Refresh = function()
@@ -274,7 +281,7 @@ AdditionalWindows.Refresh = function()
 	for _, item in pairs(refreshList) do 
 		item:refresh();
 	end
-	codes();
+	Values();
 end
 
 Load();

@@ -8,11 +8,12 @@ Cycle V1 => V2
 -- Misc
 Resync: Add 1 frame before start - But hover fail
 Mountain village bridge shorter than by lake
-/!\ Cycle doesn't sync anymore with bizhawk 1.9.4
+/!\ Cycle 1 doesn't sync anymore with bizhawk 1.9.4
 
 Room Key => 2h15 PM
 Aliens => 2h30 AM
 Sunmask skip => 1 bomb 7chus 1 backflip
 33280 => Goth room
+312/234
 --- Drafts
-67784
+24847

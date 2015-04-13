@@ -6,64 +6,28 @@ MM = {};
 MM.Watch = 
 {
 	--Everything with the pause menu
-	Inventory = 
+	Ammo =
+	{
+		Arrows = 0x1EF711
+		,Bombs = 0x1EF716
+		,Bombchus = 0x1EF717
+		,DekuSticks = 0x1EF718
+		,DekuNuts = 0x1EF719
+		,MagicBeans = 0x1EF71A
+		,PowderKegs = 0x1EF71C
+	}
+	,Inventory = 
 	{
 		-- Items (bows etc...)
 		Items = 
 		{
 			Ocarina = 0x1EF6E0
-			,HeroBow = 0
-			,FireArrow = 0
-			,IceArrow = 0
-			,LightArrow = 0
-			,QuestItem1 = 0
-			,Bomb = 0
-			,Bombchu = 0
-			,DekuStick = 0
-			,DekuNut = 0
-			,MagicBean = 0
-			,QuestItem2 = 0
-			,PowderKeg = 0
-			,PictoBox = 0
-			,LensOfTruth = 0
-			,Hookshot = 0
-			,GreatFairySword = 0
-			,QuestItem3 = 0
-			,Bottle1 = 0
-			,Bottle2 = 0
-			,Bottle3 = 0
-			,Bottle4 = 0
-			,Bottle5 = 0
-			,Bottle6 = 0
 		}
 		,ItemsBySlotID = 
 		{}
 		,Masks = 
 		{
 			Postman = 0x1EF6F8
-			,AllNight = 0
-			,Blast = 0
-			,Stone = 0
-			,GreatFairy = 0
-			,Deku = 0
-			,Keaton = 0
-			,Bremen = 0
-			,Bunny = 0
-			,DonGero = 0
-			,Scents = 0
-			,Goron = 0
-			,Romani = 0
-			,CircusLeader = 0
-			,Kafei = 0
-			,Couple = 0
-			,Truth = 0
-			,Zora = 0
-			,Kamaro = 0
-			,Gibdo = 0
-			,Garo = 0
-			,Captain = 0
-			,Giant = 0
-			,FierceDeity = 0
 		}
 		,MasksBySlotId = {}
 		-- HP, Songs, Remains,....
@@ -73,12 +37,14 @@ MM.Watch =
 			,BombersCode1stByte = 0x1F066B
 			,LotteryCode1stByte = 0x1F065F
 			,Picture1stByte = 0x1F0750
+			,HeartContainer = 0x1EF6A4
 		}
 	}
 	--Everything about Link
 	,Link = 
 	{
-		X = 0x3FFDD4
+		Health = 0x1EF6A6
+		,X = 0x3FFDD4
 		,Y = 0x3FFDD8
 		,Z = 0x3FFDDC
 		,Rotation = 0x3FFE6E --Wrong
@@ -102,32 +68,59 @@ Each values is the previous one + 1
 So, if you need to update, change change the ocarina/postman address
 and the rest will follow magically
 ]]
-local tmp = 0;
-for key, value in pairs(MM.Watch.Inventory.Items) do
-	if (tmp == 0) then
-		tmp = value;
-	end
-	if (value == 0) then
-		value = tmp;
-	end
-	tmp = tmp + 1;
-end
+MM.Watch.Inventory.Items.HeroBow = MM.Watch.Inventory.Items.Ocarina + 1;
+MM.Watch.Inventory.Items.FireArrow = MM.Watch.Inventory.Items.HeroBow + 1;
+MM.Watch.Inventory.Items.IceArrow = MM.Watch.Inventory.Items.FireArrow + 1;
+MM.Watch.Inventory.Items.LightArrow = MM.Watch.Inventory.Items.IceArrow + 1;
+MM.Watch.Inventory.Items.QuestItem1 = MM.Watch.Inventory.Items.LightArrow + 1;
+MM.Watch.Inventory.Items.Bomb = MM.Watch.Inventory.Items.QuestItem1 + 1;
+MM.Watch.Inventory.Items.Bombchu = MM.Watch.Inventory.Items.Bomb + 1;
+MM.Watch.Inventory.Items.DekuStick = MM.Watch.Inventory.Items.Bombchu + 1;
+MM.Watch.Inventory.Items.DekuNut = MM.Watch.Inventory.Items.DekuStick + 1;
+MM.Watch.Inventory.Items.MagicBean = MM.Watch.Inventory.Items.DekuNut + 1;
+MM.Watch.Inventory.Items.QuestItem2 = MM.Watch.Inventory.Items.MagicBean + 1;
+MM.Watch.Inventory.Items.PowderKeg = MM.Watch.Inventory.Items.QuestItem2 + 1;
+MM.Watch.Inventory.Items.PictoBox = MM.Watch.Inventory.Items.PowderKeg + 1;
+MM.Watch.Inventory.Items.LensOfTruth = MM.Watch.Inventory.Items.PictoBox + 1;
+MM.Watch.Inventory.Items.Hookshot = MM.Watch.Inventory.Items.LensOfTruth + 1;
+MM.Watch.Inventory.Items.GreatFairySword = MM.Watch.Inventory.Items.Hookshot + 1;
+MM.Watch.Inventory.Items.QuestItem3 = MM.Watch.Inventory.Items.GreatFairySword + 1;
+MM.Watch.Inventory.Items.Bottle1 = MM.Watch.Inventory.Items.QuestItem3 + 1;
+MM.Watch.Inventory.Items.Bottle2 = MM.Watch.Inventory.Items.Bottle1 + 1;
+MM.Watch.Inventory.Items.Bottle3 = MM.Watch.Inventory.Items.Bottle2 + 1;
+MM.Watch.Inventory.Items.Bottle4 = MM.Watch.Inventory.Items.Bottle3 + 1;
+MM.Watch.Inventory.Items.Bottle5 = MM.Watch.Inventory.Items.Bottle4 + 1;
+MM.Watch.Inventory.Items.Bottle6 = MM.Watch.Inventory.Items.Bottle5 + 1;
+
+MM.Watch.Inventory.Masks.AllNight = MM.Watch.Inventory.Masks.Postman + 1;
+MM.Watch.Inventory.Masks.Blast = MM.Watch.Inventory.Masks.AllNight + 1;
+MM.Watch.Inventory.Masks.Stone = MM.Watch.Inventory.Masks.Blast + 1;
+MM.Watch.Inventory.Masks.GreatFairy = MM.Watch.Inventory.Masks.Stone + 1;
+MM.Watch.Inventory.Masks.Deku = MM.Watch.Inventory.Masks.GreatFairy + 1;
+MM.Watch.Inventory.Masks.Keaton = MM.Watch.Inventory.Masks.Deku + 1;
+MM.Watch.Inventory.Masks.Bremen = MM.Watch.Inventory.Masks.Keaton + 1;
+MM.Watch.Inventory.Masks.Bunny = MM.Watch.Inventory.Masks.Bremen + 1;
+MM.Watch.Inventory.Masks.DonGero = MM.Watch.Inventory.Masks.Bunny + 1;
+MM.Watch.Inventory.Masks.Scents = MM.Watch.Inventory.Masks.DonGero + 1;
+MM.Watch.Inventory.Masks.Goron = MM.Watch.Inventory.Masks.Scents + 1;
+MM.Watch.Inventory.Masks.Romani = MM.Watch.Inventory.Masks.Goron + 1;
+MM.Watch.Inventory.Masks.CircusLeader = MM.Watch.Inventory.Masks.Romani + 1;
+MM.Watch.Inventory.Masks.Kafei = MM.Watch.Inventory.Masks.CircusLeader + 1;
+MM.Watch.Inventory.Masks.Couple = MM.Watch.Inventory.Masks.Kafei + 1;
+MM.Watch.Inventory.Masks.Truth = MM.Watch.Inventory.Masks.Couple + 1;
+MM.Watch.Inventory.Masks.Zora = MM.Watch.Inventory.Masks.Truth + 1;
+MM.Watch.Inventory.Masks.Kamaro = MM.Watch.Inventory.Masks.Zora + 1;
+MM.Watch.Inventory.Masks.Gibdo = MM.Watch.Inventory.Masks.Kamaro + 1;
+MM.Watch.Inventory.Masks.Garo = MM.Watch.Inventory.Masks.Gibdo + 1;
+MM.Watch.Inventory.Masks.Captain = MM.Watch.Inventory.Masks.Garo + 1;
+MM.Watch.Inventory.Masks.Giant = MM.Watch.Inventory.Masks.Captain + 1;
+MM.Watch.Inventory.Masks.FierceDeity = MM.Watch.Inventory.Masks.Giant + 1;
 for i = 0, 23 do
 	if i == 0 then
 		MM.Watch.Inventory.ItemsBySlotID[i] = MM.Watch.Inventory.Items.Ocarina;
 	else
 		MM.Watch.Inventory.ItemsBySlotID[i] = MM.Watch.Inventory.ItemsBySlotID[i - 1] + 1;
 	end
-end
-tmp = 0;
-for key, value in pairs(MM.Watch.Inventory.Masks) do
-	if (tmp == 0) then
-		tmp = value;
-	end
-	if (value == 0) then
-		value = tmp;
-	end
-	tmp = tmp + 1;
 end
 for i = 0, 23 do
 	if i == 0 then
