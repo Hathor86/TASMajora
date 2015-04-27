@@ -4,6 +4,8 @@ Reset -> +/- 600 frames
 
 Cycle V1 => V2
 585
+Cycle V2 => V3
+669
 
 -- Misc
 Resync: Add 1 frame before start - But hover fail
@@ -16,4 +18,6 @@ Sunmask skip => 1 bomb 7chus 1 backflip
 33280 => Goth room
 312/234
 --- Drafts
-24847
+29961
+
+30632
