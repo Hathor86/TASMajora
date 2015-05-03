@@ -19,14 +19,15 @@ local function init()
 	console.clear();
 	
 	dofile(luaPath.."MM_Commons.lua");
-	dofile(luaPath.."MM_Form_AdvancedWatch.lua");
 	dofile(luaPath.."MM_MovementLibrary.lua");
+	dofile(luaPath.."MM_Form_AdvancedWatch.lua");
 	dofile(luaPath.."MM_Form_AdvancedControl.lua");
+	dofile(luaPath.."ContextualUI.lua");
 	
 	forms.destroyall();
 
-	AdditionalWindows.InitWatches();
-	--AdditionalWindows.InitAdvancedConrols();
+	AdditionalWindows.Watches.Init();
+	AdditionalWindows.AdvancedConrols.Init();
 end
 
 --Display coords
@@ -51,7 +52,6 @@ end
 
 --Display Items
 local function items()
-	--gui.text(0, firstLine + spacing * 4, string.format("Bombs: %i", memory.readbyte(bombsSlot)));
 	gui.text(80, firstLine - 35, memory.readbyte(magic));
 	gui.text(0, 0, string.format("Cleft: %i cDown:%i cRight:%i", memory.readbyte(cLeft), memory.readbyte(cDown), memory.readbyte(cRight)), _, _, "topright");
 end
@@ -78,7 +78,10 @@ init();
 --Main loop
 while true do
 	gui.cleartext();
+	gui.clearGraphics();
 	ui();
-	AdditionalWindows.Refresh();
+	AdditionalWindows.Watches.Refresh();
+	AdditionalWindows.AdvancedConrols.Refresh();
+	ContextualUI.Refresh();
 	emu.yield();
 end

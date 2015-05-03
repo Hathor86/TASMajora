@@ -55,12 +55,28 @@ MM.Watch =
 	{
 		CurrentDay = 0x1EF68B
 		,IgTime = 0x1EF67C
+		,CurrentMap = 0x1EF672
+	}
+	
+	--Misc Stuff
+	,Misc =
+	{
+		ExitSetter = 0x3FF39A
+		,WarpSetter = 0x3FF395
+		
+		,OdolwaHealth = 0x416927
+		,GothHealth = 0x416FD7
+		,GyorgHealth = 0x416567
+		,BlueTwinmoldHealth = 0x41CAE7
+		,RedTwinmoldHealth = 0x415097
 	}
 };
 
 MM.Dictionnary =
 {
 	Items = {};
+	Exits = {};
+	ExitsByName = {};
 };
 
 --[[
@@ -389,12 +405,19 @@ MM.Dictionnary.Items[0xFD] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFE] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFF] = "Empty Slot";
 
+MM.Dictionnary.Exits[0x3800] = "Odolwa";
+MM.Dictionnary.Exits[0x6600] = "Twinmold";
+
+MM.Dictionnary.ExitsByName["Odolwa"] = 0x3800;
+MM.Dictionnary.ExitsByName["Twinmold"] = 0x6600;
+
 --Convert an angle from Z64 engine (2 bytes) to regular degrees
 MM.Helper.Z64AngleToDegree = function(Z64Angle)
 
 	return (Z64Angle / 0xFFFF) * 360;
 
 end
+--Convert regular degree to Z64 engine angle (2bytes)
 MM.Helper.DegreeToZ64Angle = function(angle)
 
 	return (angle / 360) * 0XFFFF;

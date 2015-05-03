@@ -1,4 +1,5 @@
 AdditionalWindows = {};
+AdditionalWindows.Watches = {};
 
 local bombersCode = "";
 local skulltullaCode = "";
@@ -19,7 +20,8 @@ local EditableValue =
 	textBoxHandle = 0;
 	text = 0;
 };
-function EditableValue:new (form, x, y, text, value, width) --Constructor
+--Constructor
+function EditableValue:new (form, x, y, text, value, width)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
@@ -37,6 +39,7 @@ end
 function EditableValue:refresh(value)
 	forms.setproperty(self.labelHandle, "Text", string.format("%s: %s", self.text, value));
 end
+
 -- EditableItem Class
 local EditableItem = 
 {
@@ -49,7 +52,8 @@ local EditableItem =
 	ammoEditHandle = 0;
 	ammoWatchAddress = 0;
 };
-function EditableItem:new(form, x, y, slotID) --Constructor
+--Constructor
+function EditableItem:new(form, x, y, slotID)
 	local o = {};
 	setmetatable(o, self);
 	self.__index = self;
@@ -90,7 +94,8 @@ function EditableItem:new(form, x, y, slotID) --Constructor
 	
 	return o;
 end
-function EditableItem:refresh() --Refresh method. We read the values in memory and update the label
+--Refresh method. We read the values in memory and update the label
+function EditableItem:refresh()
 	if self.slotID < 24 then
 		forms.setproperty(self.itemLabelHandle, "Text", string.format("Current: %s", MM.Dictionnary.Items[memory.readbyte(MM.Watch.Inventory.ItemsBySlotID[self.slotID])]));
 	elseif self.slotID <= 47 then
@@ -180,7 +185,7 @@ local function switchMode()
 end
 
 --Initialize the window
-AdditionalWindows.InitWatches = function()
+AdditionalWindows.Watches.Init = function()
 	local form = forms.newform(800, 800, "Watches");
 	
 	editBoxes["bombers"] = EditableValue:new(form, 0, 0, "Bombers Code", bombersCode);
@@ -269,7 +274,7 @@ local function Values()
 	
 end
 
-AdditionalWindows.Refresh = function()
+AdditionalWindows.Watches.Refresh = function()
 	Load();
 	for _, item in pairs(refreshList) do 
 		item:refresh();
