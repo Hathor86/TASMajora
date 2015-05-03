@@ -19,8 +19,9 @@ local function init()
 	console.clear();
 	
 	dofile(luaPath.."MM_Commons.lua");
-	dofile(luaPath.."MM_Forms.lua");
+	dofile(luaPath.."MM_Form_AdvancedWatch.lua");
 	dofile(luaPath.."MM_MovementLibrary.lua");
+	dofile(luaPath.."MM_Form_AdvancedControl.lua");
 	
 	forms.destroyall();
 
@@ -33,7 +34,7 @@ local function coord()
 	gui.text(0, firstLine, string.format("X-position: %.2f", memory.readfloat(MM.Watch.Link.X, true)), _, _, "topright");
 	gui.text(0, firstLine + spacing, string.format("Y-position: %.2f", memory.readfloat(MM.Watch.Link.Y, true)), _, _, "topright");
 	gui.text(0, firstLine + spacing * 2, string.format("Z-position: %.2f", memory.readfloat(MM.Watch.Link.Z, true)), _, _, "topright");
-	--gui.text(0, firstLine + spacing * 3, string.format("Rotation: %.2f°", math.deg(memory.readfloat(MM.Watch.Link.Rotation, true))), _, _, "topright");
+	gui.text(0, firstLine + spacing * 3, string.format("Rotation: %.2f°", MM.Helper.Z64AngleToDegree(memory.read_u16_be(MM.Watch.Link.YRotation))), _, _, "topright");
 end
 
 --Display Link Velocity
@@ -50,8 +51,8 @@ end
 
 --Display Items
 local function items()
-	gui.text(0, firstLine + spacing * 4, string.format("Bombs: %i", memory.readbyte(bombsSlot)));
-	gui.text(80, firstLine - 35, memory.readbyte(magic));	
+	--gui.text(0, firstLine + spacing * 4, string.format("Bombs: %i", memory.readbyte(bombsSlot)));
+	gui.text(80, firstLine - 35, memory.readbyte(magic));
 	gui.text(0, 0, string.format("Cleft: %i cDown:%i cRight:%i", memory.readbyte(cLeft), memory.readbyte(cDown), memory.readbyte(cRight)), _, _, "topright");
 end
 

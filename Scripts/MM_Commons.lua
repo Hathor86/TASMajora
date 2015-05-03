@@ -2,6 +2,7 @@
 This file holds all common stuff espacially ram adresses
 ]]
 MM = {};
+MM.Helper = {};
 
 MM.Watch = 
 {
@@ -47,7 +48,7 @@ MM.Watch =
 		,X = 0x3FFDD4
 		,Y = 0x3FFDD8
 		,Z = 0x3FFDDC
-		,Rotation = 0x3FFE6E --Wrong
+		,YRotation = 0x3FFE6E
 		,Velocity = 0x3FFE20
 	}
 	,Status = 
@@ -387,3 +388,15 @@ MM.Dictionnary.Items[0xFC] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFD] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFE] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFF] = "Empty Slot";
+
+--Convert an angle from Z64 engine (2 bytes) to regular degrees
+MM.Helper.Z64AngleToDegree = function(Z64Angle)
+
+	return (Z64Angle / 0xFFFF) * 360;
+
+end
+MM.Helper.DegreeToZ64Angle = function(angle)
+
+	return (angle / 360) * 0XFFFF;
+
+end

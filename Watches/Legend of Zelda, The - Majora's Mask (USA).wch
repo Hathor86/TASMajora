@@ -111,10 +111,13 @@ SystemID N64
 1F0684	b	s	1	RDRAM	Rock sirloin next zone
 3FF395	b	h	1	RDRAM	Warp setter
 3FF39A	w	u	1	RDRAM	Exit Setter
+1EF672	w	u	1	RDRAM	Current Map
 3FFDD4	d	f	1	RDRAM	X position
 3FFDD8	d	f	1	RDRAM	Y position
 3FFDDC	d	f	1	RDRAM	Z position
-3FFE6E	d	f	1	RDRAM	Angle ?
+3FFE6C	w	u	1	RDRAM	X-Rotation
+3FFE6E	w	u	1	RDRAM	Y-Rotation
+3FFE70	w	u	1	RDRAM	Z-Rotation
 3FFE14	d	f	1	RDRAM	X-Velocity
 3FFE18	d	f	1	RDRAM	Y-Velocity
 3FFE1C	d	f	1	RDRAM	Z-Velocity
@@ -129,6 +132,7 @@ SystemID N64
 416FD7	b	u	1	RDRAM	Goth Health
 416567	b	h	1	RDRAM	Gyorg Health
 41CAE7	b	u	1	RDRAM	Blue Twinmold Helath
+415097	b	u	1	RDRAM	Red Twinmold Helath
 22A138	w	u	1	RDRAM	Camera 1 (Unknow stuff)
 24A448	w	u	1	RDRAM	Camera 2 (Unknow stuff)
 
