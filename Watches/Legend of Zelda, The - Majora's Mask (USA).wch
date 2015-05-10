@@ -86,8 +86,8 @@ SystemID N64
 1EF719	b	s	1	RDRAM	Deku nuts
 1EF71A	b	s	1	RDRAM	Magic beans
 1EF71C	b	s	1	RDRAM	Powder keg
-1EF6A9	b	u	1	RDRAM	Magic Meter
-1EF6A8	b	u	1	RDRAM	Magic stuff
+1EF6A9	b	u	1	RDRAM	Magic
+1F359E	w	s	1	RDRAM	Magic Length
 1F0686	w	u	1	RDRAM	Jinx Timer
 1F0688	w	s	1	RDRAM	Give Rupess
 1EF68B	b	u	1	RDRAM	Current Day
@@ -128,9 +128,9 @@ SystemID N64
 3FFDF5	b	u	1	RDRAM	C-Up - Horizontal Axis Position
 3FFDF4	b	u	1	RDRAM	C-Up - Vertical Axis Position
 40F907	b	u	1	RDRAM	Eyegore Health
-416927	b	h	1	RDRAM	Odolwa Health
+416927	b	u	1	RDRAM	Odolwa Health
 416FD7	b	u	1	RDRAM	Goth Health
-416567	b	h	1	RDRAM	Gyorg Health
+416567	b	u	1	RDRAM	Gyorg Health
 41CAE7	b	u	1	RDRAM	Blue Twinmold Helath
 415097	b	u	1	RDRAM	Red Twinmold Helath
 22A138	w	u	1	RDRAM	Camera 1 (Unknow stuff)
