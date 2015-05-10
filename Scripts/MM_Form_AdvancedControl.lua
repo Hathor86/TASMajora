@@ -20,8 +20,8 @@ AdditionalWindows.AdvancedConrols.Init = function()
 	local handle = forms.dropdown(form, {"SOT" ,"SODT", "SOH", "SOE", "SOS", "SOST", "SOA", "GLI", "GL", "NWBN", "EOE", "OOA"}, 0, 15, 50, 15);
 	
 	forms.label(form, "Exit Setter", 0, 45, 75, 15, false);
-	handles["exitDropDown"] = forms.dropdown(form, MM.Dictionnary.Exits, 0, 60, 75, 15);
-	handles["goToExitButton"] = forms.button(form, "Go", GotoExit, 80, 60, 35, 20);
+	handles["exitDropDown"] = forms.dropdown(form, MM.Dictionnary.Exits, 0, 60, 125, 15);
+	handles["goToExitButton"] = forms.button(form, "Go", GotoExit, 130, 60, 35, 20);
 end
 
 AdditionalWindows.AdvancedConrols.Refresh = function()

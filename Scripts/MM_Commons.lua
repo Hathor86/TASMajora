@@ -61,7 +61,11 @@ MM.Watch =
 	--Misc Stuff
 	,Misc =
 	{
-		ExitSetter = 0x3FF39A
+		HoneyAndDarlingCurrentScore = 0x410A09
+		,HoneyAndDarlingCurrentScoreD3 = 0x40FC29
+		,HoneyAndDarlingPerfectScore = 0x40FC2D
+		
+		,ExitSetter = 0x3FF39A
 		,WarpSetter = 0x3FF395
 		
 		,OdolwaHealth = 0x416927
@@ -405,11 +409,23 @@ MM.Dictionnary.Items[0xFD] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFE] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFF] = "Empty Slot";
 
+MM.Dictionnary.Exits[0x0800] = "Honey & Darling";
 MM.Dictionnary.Exits[0x3800] = "Odolwa";
 MM.Dictionnary.Exits[0x6600] = "Twinmold";
+MM.Dictionnary.Exits[0x4600] = "Clock Town Fairy";
+MM.Dictionnary.Exits[0x4610] = "Woodfall Fairy";
+MM.Dictionnary.Exits[0x4620] = "Snowhead Fairy";
+MM.Dictionnary.Exits[0x4630] = "Zora Cap Fairy";
+MM.Dictionnary.Exits[0x4640] = "Ikana Canyon Fairy";
 
+MM.Dictionnary.ExitsByName["Honey & Darling"] = 0x0800;
 MM.Dictionnary.ExitsByName["Odolwa"] = 0x3800;
 MM.Dictionnary.ExitsByName["Twinmold"] = 0x6600;
+MM.Dictionnary.ExitsByName["Clock Town Fairy"] = 0x4600;
+MM.Dictionnary.ExitsByName["Woodfall Fairy"] = 0x4610;
+MM.Dictionnary.ExitsByName["Snowhead Fairy"] = 0x4620;
+MM.Dictionnary.ExitsByName["Zora Cap Fairy"] = 0x4630;
+MM.Dictionnary.ExitsByName["Ikana Canyon Fairy"] = 0x4640;
 
 --Convert an angle from Z64 engine (2 bytes) to regular degrees
 MM.Helper.Z64AngleToDegree = function(Z64Angle)

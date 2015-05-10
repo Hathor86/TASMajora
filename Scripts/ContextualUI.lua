@@ -1,85 +1,98 @@
 ContextualUI = {};
 
 local currentRoom = 0;
-local mobCurrentHealth;
+local currentValue;
 
-local mobMaxHealth = -1;
+local maxValue = -1;
 
 --Specific UI for Odolwa
 local function Odolwa()
 
-	mobCurrentHealth = memory.readbyte(MM.Watch.Misc.OdolwaHealth);
-	if(mobMaxHealth == -1) then
-		mobMaxHealth = mobCurrentHealth;
-	end
+	currentValue = memory.readbyte(MM.Watch.Misc.OdolwaHealth);
+	maxValue = 20;
+	
 	-- For strange reason, helath is set to max value (255 - 0xFF) when die
-	if (mobCurrentHealth == 255) then
-		mobCurrentHealth = 0;
+	if (currentValue == 255) then
+		currentValue = 0;
 	end
 	
-	gui.text(0, 110, "Boss Health: "..mobCurrentHealth);
+	gui.text(0, 110, string.format("Boss Health: %i/%i", currentValue, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
-	gui.drawRectangle(1, 126, (mobCurrentHealth / mobMaxHealth) * 200, 13, _, "Green");
+	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Green");
 
 end
 
 --Specific UI for Goth
 local function Goth()
 
-	mobCurrentHealth = memory.readbyte(MM.Watch.Misc.GothHealth);
-	if(mobMaxHealth == -1) then
-		mobMaxHealth = mobCurrentHealth;
-	end
+	currentValue = memory.readbyte(MM.Watch.Misc.GothHealth);
+	maxValue = 20;
+	
 	-- For strange reason, helath is set to max value (255 - 0xFF) when die
-	if (mobCurrentHealth == 255) then
-		mobCurrentHealth = 0;
+	if (currentValue == 255) then
+		currentValue = 0;
 	end
 	
-	gui.text(0, 110, "Boss Health: "..mobCurrentHealth);
+	gui.text(0, 110, string.format("Boss Health: %i/%i", currentValue, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
-	gui.drawRectangle(1, 126, (mobCurrentHealth / mobMaxHealth) * 200, 13, _, "Green");
+	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Green");
 
 end
 
 --Specific UI for Gyorg
 local function Gyorg()
 
-	mobCurrentHealth = memory.readbyte(MM.Watch.Misc.GyorgHealth);
-	if(mobMaxHealth == -1) then
-		mobMaxHealth = mobCurrentHealth;
-	end
+	currentValue = memory.readbyte(MM.Watch.Misc.GyorgHealth);
+	maxValue = 20;
+	
 	-- For strange reason, helath is set to max value (255 - 0xFF) when die
-	if (mobCurrentHealth == 255) then
-		mobCurrentHealth = 0;
+	if (currentValue == 255) then
+		currentValue = 0;
 	end
 	
-	gui.text(0, 110, "Boss Health: "..mobCurrentHealth);
+	gui.text(0, 110, string.format("Boss Health: %i/%i", currentValue, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
-	gui.drawRectangle(1, 126, (mobCurrentHealth / mobMaxHealth) * 200, 13, _, "Green");
+	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Green");
 
 end
 
 --Specific UI for Twinmold
 local function Twinmold()
 
-	mobCurrentHealth = memory.readbyte(MM.Watch.Misc.BlueTwinmoldHealth);
-	local mobCurrentHealth2 = memory.readbyte(MM.Watch.Misc.RedTwinmoldHealth);
-	if(mobMaxHealth == -1) then
-		mobMaxHealth = mobCurrentHealth;
-	end
+	currentValue = memory.readbyte(MM.Watch.Misc.BlueTwinmoldHealth);
+	local currentValue2 = memory.readbyte(MM.Watch.Misc.RedTwinmoldHealth);
+	maxValue = 20;
+	
 	-- For strange reason, helath is set to max value (255 - 0xFF) when die
-	if (mobCurrentHealth == 255) then
-		mobCurrentHealth = 0;
+	if (currentValue == 255) then
+		currentValue = 0;
 	end
-	if (mobCurrentHealth2 == 255) then
-		mobCurrentHealth2 = 0;
+	if (currentValue2 == 255) then
+		currentValue2 = 0;
 	end
 	
-	gui.text(0, 110, "Boss Health: "..mobCurrentHealth.."/"..mobCurrentHealth2);
+	gui.text(0, 110, string.format("Boss Health: %i/%i - %i/%i", currentValue, maxValue, currentValue2, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
 	gui.drawRectangle(0, 140, 202, 15, "White");
-	gui.drawRectangle(1, 126, (mobCurrentHealth / mobMaxHealth) * 200, 13, _, "Blue");
-	gui.drawRectangle(1, 141, (mobCurrentHealth2 / mobMaxHealth) * 200, 13, _, "Red");
+	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Blue");
+	gui.drawRectangle(1, 141, (currentValue2 / maxValue) * 200, 13, _, "Red");
+
+end
+
+--Specific UI for Honey & Darling
+local function Honey()
+
+	if (memory.readbyte(MM.Watch.Status.CurrentDay) == 3) then
+		currentValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingCurrentScoreD3);
+	else
+		currentValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingCurrentScore);
+	end
+	
+	maxValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingPerfectScore);
+	
+	gui.text(0, 110, string.format("Score: %i/%i", currentValue, maxValue));
+	gui.drawRectangle(0, 125, 202, 15, "White");
+	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Green");
 
 end
 
@@ -95,8 +108,10 @@ ContextualUI.Refresh = function()
 		Gyorg();
 	elseif (currentRoom == MM.Dictionnary.ExitsByName["Twinmold"]) then
 		Twinmold();
+	elseif (currentRoom == MM.Dictionnary.ExitsByName["Honey & Darling"]) then
+		Honey();
 	else
-		mobMaxHealth = -1;
+		maxValue = -1;
 	end
 
 end
