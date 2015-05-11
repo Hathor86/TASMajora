@@ -6,11 +6,40 @@ local skulltullaCode = "";
 local lotteryCodes = {};
 local health = "";
 local maxHealth = "";
+local buttons = {};
 
 local refreshList = {};
 local editBoxes = {};
+local readOnly = {};
 
 local editMode = true;
+
+--ReadOnlyVlaue class
+local ReadOnlyValue =
+{
+	formHandle = 0;
+	labelHandle = 0;
+	text = "";
+};
+--Constructor
+function ReadOnlyValue:new(form, x, y, text, value, width)
+	local o = {};
+	setmetatable(o, self);
+	self.__index = self;
+	
+	if (width == nil) then
+		width = 145;
+	end
+	o.formHandle = form;
+	o.text = text;
+	o.labelHandle = forms.label(o.formHandle, string.format("%s: %s", text, value), x, y, width, 20, false);
+	
+	return o;
+end
+--Refresh method
+function ReadOnlyValue:refresh(value)
+	forms.setproperty(self.labelHandle, "Text", string.format("%s: %s", self.text, value));
+end
 
 --EditableValue class
 local EditableValue = 
@@ -195,6 +224,11 @@ AdditionalWindows.Watches.Init = function()
 	editBoxes["health"] = EditableValue:new(form, 200, 0, "Current health", health, 100);
 	editBoxes["maxHealth"] = EditableValue:new(form, 200, 20, "Heart container", maxHealth / 16, 100);
 	
+	readOnly["stick"] = ReadOnlyValue:new(form, 625, 0, "Stick Angle", 0);
+	readOnly["Left Sidehop"] = ReadOnlyValue:new(form, 625, 20, "Left Sidehop", 0);
+	readOnly["Right Sidehop"] = ReadOnlyValue:new(form, 625, 40, "Right Sidehop", 0);
+	readOnly["UTurn"] = ReadOnlyValue:new(form, 625, 60, "Uturn", 0);
+	
 	forms.label(form, "Inventory", 0, 80, 60, 20, false);
 	local tmp;
 	local k = 0;
@@ -260,6 +294,7 @@ local function Values()
 		--gui.text(currentWidth / 2.5 + i * 20, firstLine + spacing, string.format("%s%i", tab, skulltullaCode[i]), _, color);
 	end
 	--gui.text(0, firstLine + spacing, string.format("Skulltula Code (%s jumps):", jumpCount));]]
+	buttons = joypad.get(1);
 	
 	editBoxes["bombers"]:refresh(bombersCode);
 	editBoxes["skulltula"]:refresh(skulltullaCode);
@@ -271,6 +306,12 @@ local function Values()
 	
 	editBoxes["health"]:refresh(health);
 	editBoxes["maxHealth"]:refresh(maxHealth);
+	
+	local currentAngle = math.atan2(buttons["Y Axis"], buttons["X Axis"]);
+	readOnly["stick"]:refresh(string.format("%.2f", math.deg(currentAngle)));
+	readOnly["Left Sidehop"]:refresh(string.format("X:%.0f - Y:%.0f", MM.Helper.ToCartesian(currentAngle + math.pi / 2)));
+	readOnly["Right Sidehop"]:refresh(string.format("X:%.0f - Y:%.0f", MM.Helper.ToCartesian(currentAngle - math.pi / 2)));
+	readOnly["UTurn"]:refresh(string.format("X:%.0f - Y:%.0f", MM.Helper.ToCartesian(currentAngle + math.pi)));
 	
 end
 
