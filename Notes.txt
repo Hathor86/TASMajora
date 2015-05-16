@@ -15,7 +15,6 @@ H&D 1 => Roll == Non roll
 Room Key => 2h15 PM
 Aliens => 2h30 AM
 Sunmask skip => 1 bomb 7chus 1 backflip
-33280 => Goth room
 312/234
 --- Drafts
-73292
+78487

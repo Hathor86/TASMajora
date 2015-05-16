@@ -152,6 +152,7 @@ for i = 0, 23 do
 end
 
 --Fill the dictionnary
+--Source: Keeta's google doc: https://docs.google.com/spreadsheets/d/1gohFmq_dfPrdbEwKt0VlB7aFIfRl6I0OzmLwRBpygtw/edit#gid=0
 MM.Dictionnary.Items[0x00] = "Ocarina of Time";
 MM.Dictionnary.Items[0x01] = "Hero's Bow";
 MM.Dictionnary.Items[0x02] = "Fire Arrow";
@@ -429,21 +430,14 @@ MM.Dictionnary.ExitsByName["Ikana Canyon Fairy"] = 0x4640;
 
 --Convert an angle from Z64 engine (2 bytes) to regular degrees
 MM.Helper.Z64AngleToDegree = function(Z64Angle)
-	
 	return (Z64Angle / 0xFFFF) * 360;
-	
 end
 --Convert regular degree to Z64 engine angle (2bytes)
 MM.Helper.DegreeToZ64Angle = function(angle)
-	
 	return (angle / 360) * 0XFFFF;
-	
 end
 --Get X and Y stick coordinate for givan Angle
 MM.Helper.ToCartesian = function(angle)
-	
 	local r = math.pow(math.pow(joypad.get(1)["X Axis"], 2) + math.pow(joypad.get(1)["Y Axis"], 2), 0.5);
-	
 	return math.floor(r * math.cos(angle),0), math.floor(r * math.sin(angle),0);
-	
 end

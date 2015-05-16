@@ -1,57 +1,22 @@
 MovementsHelper = {};
-MovementsHelper.cOcarina = "";
-
-MovementsHelper.ocarinaDelay = 15;
-
 MovementsHelper.Songs = {};
-MovementsHelper.Songs["SOT"] = {"Right", "A", "Down", "Right", "A", "Down"}; --Song Of time
-MovementsHelper.Songs["SODT"] = {"Right", "Right", "A", "A", "Down", "Down"}; -- Song of Double Time
-MovementsHelper.Songs["SOH"] = {"Left", "Right", "Down", "Left", "Right", "Down"}; -- Song Of Healing
-MovementsHelper.Songs["SOE"] = {"Up", "Left", "Right", "Up", "Left", "Right"}; -- Song Of Epona
-MovementsHelper.Songs["SOS"] = {"Down", "Left", "Up", "Down", "Left", "Up"}; -- Song Of Soaring
-MovementsHelper.Songs["SOST"] = {"A", "Down", "Up", "A", "Down", "Up"}; -- Song Of Storm
-MovementsHelper.Songs["SOA"] = {"Up", "Left", "Up", "Left", "A", "Right", "A"}; -- Sonata Of Awakening
-MovementsHelper.Songs["GLI"] = {"A", "Right", "Left", "A", "Right", "Left"}; -- Goron Lullaby Intro
-MovementsHelper.Songs["GL"] = {"A", "Right", "Left", "A", "Right", "Left", "Right", "A"}; -- Goron Lullaby
-MovementsHelper.Songs["NWBN"] = {"Left", "Up", "Left", "Right", "Down", "Left", "Right"}; -- New Wave Bossa Nova
-MovementsHelper.Songs["EOE"] = {"Right", "Left", "Right", "Down", "Right", "Up", "Left"}; -- Elegy Of Emptyness
-MovementsHelper.Songs["OOA"] = {"Right", "Down", "A", "Down", "Right", "Up"}; -- Oath Of Order
 
 local buttons = {};
 
-local function setButton(button)
-	buttons = {};
-	if (button == "Up") then
-		buttons["C Up"] = true;
-	elseif (button == "Down") then
-		buttons["C Down"] = true;
-	elseif (button == "Left") then
-		buttons["C Left"] = true;
-	elseif (button == "Right") then
-		buttons["C Right"] = true;
-	elseif (button == "A") then
-		buttons["A"] = true;
-	else
-		console.log(string.format("Unknow button: %s ", button));
-	end
-end
+MovementsHelper.Songs["SOT"] = {"C Right", "A", "C Down", "C Right", "A", "C Down"}; --Song Of time
+MovementsHelper.Songs["SODT"] = {"C Right", "C Right", "A", "A", "C Down", "C Down"}; -- Song of Double Time
+MovementsHelper.Songs["SOH"] = {"C Left", "C Right", "C Down", "C Left", "C Right", "C Down"}; -- Song Of Healing
+MovementsHelper.Songs["SOE"] = {"C Up", "C Left", "C Right", "C Up", "C Left", "C Right"}; -- Song Of Epona
+MovementsHelper.Songs["SOS"] = {"C Down", "C Left", "C Up", "C Down", "C Left", "C Up"}; -- Song Of Soaring
+MovementsHelper.Songs["SOST"] = {"A", "C Down", "C Up", "A", "C Down", "C Up"}; -- Song Of Storm
+MovementsHelper.Songs["SOA"] = {"C Up", "C Left", "C Up", "C Left", "A", "C Right", "A"}; -- Sonata Of Awakening
+MovementsHelper.Songs["GLI"] = {"A", "C Right", "C Left", "A", "C Right", "C Left"}; -- Goron Lullaby Intro
+MovementsHelper.Songs["GL"] = {"A", "C Right", "C Left", "A", "C Right", "C Left", "C Right", "A"}; -- Goron Lullaby
+MovementsHelper.Songs["NWBN"] = {"C Left", "C Up", "C Left", "C Right", "C Down", "C Left", "C Right"}; -- New Wave Bossa Nova
+MovementsHelper.Songs["EOE"] = {"C Right", "C Left", "C Right", "C Down", "C Right", "C Up", "C Left"}; -- Elegy Of Emptyness
+MovementsHelper.Songs["OOA"] = {"C Right", "C Down", "A", "C Down", "C Right", "C Up"}; -- Oath Of Order
 
-local function removeButton(button)
-	if (button == "Up") then
-		buttons["C Up"] = false;
-	elseif (button == "Down") then
-		buttons["C Down"] = false;
-	elseif (button == "Left") then
-		buttons["C Left"] = false;
-	elseif (button == "Right") then
-		buttons["C Right"] = false;
-	elseif (button == "A") then
-		buttons["A"] = false;
-	else
-		console.log(string.format("Unknow button: %s", button));
-	end
-end
-
+--For Z64 engine 1 frame => 3 "real" frames"
 MovementsHelper.Z64FrameAdvance = function()
 	joypad.set(buttons, 1);
 	emu.frameadvance();	
@@ -61,29 +26,29 @@ MovementsHelper.Z64FrameAdvance = function()
 	emu.frameadvance();
 end
 
+--Simply play specified song
 MovementsHelper.PlaySong = function(songName)
-
-	-- if(MovementsHelper.cOcarina == "") then
-		-- return nil;
-	-- else
-		-- setButton(MovementsHelper.cOcarina);
-		-- joypad.set(buttons, 1);
-		-- for i = 0, MovementsHelper.ocarinaDelay do
-			-- MovementsHelper.Z64FrameAdvance();
-			--removeButton(MovementsHelper.cOcarina);
-		-- end
-	
+	if(songName == "SODT") then
 		for idx, button in ipairs(MovementsHelper.Songs[songName]) do
-			setButton(button);
+			buttons[button] = true;
 			joypad.set(buttons, 1);
 			MovementsHelper.Z64FrameAdvance();
 			MovementsHelper.Z64FrameAdvance();
+			MovementsHelper.Z64FrameAdvance();
+			buttons[button] = false;
 		end
-	--end
+	else
+		for idx, button in ipairs(MovementsHelper.Songs[songName]) do
+			buttons[button] = true;
+			joypad.set(buttons, 1);
+			MovementsHelper.Z64FrameAdvance();
+			MovementsHelper.Z64FrameAdvance();
+			buttons[button] = false;
+		end
+	end
 end
 
 MovementsHelper.ReverseCameraAngle = function(saveStateSlot)
-	
 	savestate.loadslot(saveStateSlot);
 	
 	buttons["Z"] = true;
@@ -108,5 +73,4 @@ MovementsHelper.ReverseCameraAngle = function(saveStateSlot)
 	joypad.set(buttons, 1);
 	MovementsHelper.Z64FrameAdvance();
 	gui.drawText(250, 250, "Hold Z", _, 25);
-	
 end

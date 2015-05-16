@@ -13,6 +13,7 @@ local editBoxes = {};
 local readOnly = {};
 
 local editMode = true;
+local valueSetter = 0;
 
 --ReadOnlyVlaue class
 local ReadOnlyValue =
@@ -137,7 +138,6 @@ end
 
 --Load values
 local function Load()
-
 	bombersCode = "";
 	for i = 0, 4 do
 		bombersCode = string.format("%s%s", bombersCode, memory.readbyte(MM.Watch.Inventory.Quests.BombersCode1stByte + i));
@@ -196,12 +196,14 @@ local function SetValues()
 end
 
 --Switch between edit and view mode
-local function switchMode()
+local function SwitchMode()
 	if (movie.isloaded()) then
 		editMode = false;
 	else
-		editMode = not editMode;
+		editMode = true;
 	end
+	
+	forms.setproperty(valueSetter, "Enabled", editMode);
 	
 	for key, handle in pairs(editBoxes) do
 		forms.setproperty(handle.textBoxHandle, "Enabled", editMode);
@@ -254,9 +256,7 @@ AdditionalWindows.Watches.Init = function()
 		end
 	end
 	
-	forms.button(form, "Set !", SetValues, 0 ,650);
-	
-	switchMode();
+	valueSetter = forms.button(form, "Set !", SetValues, 0 ,650);
 end
 
 --Update the lottery code
@@ -312,14 +312,21 @@ local function Values()
 	readOnly["Left Sidehop"]:refresh(string.format("X:%.0f - Y:%.0f", MM.Helper.ToCartesian(currentAngle + math.pi / 2)));
 	readOnly["Right Sidehop"]:refresh(string.format("X:%.0f - Y:%.0f", MM.Helper.ToCartesian(currentAngle - math.pi / 2)));
 	readOnly["UTurn"]:refresh(string.format("X:%.0f - Y:%.0f", MM.Helper.ToCartesian(currentAngle + math.pi)));
-	
 end
 
 AdditionalWindows.Watches.Refresh = function()
 	Load();
+	
+	if((movie.isloaded() and editMode)
+		or (not movie.isloaded() and not editMode)
+	) then
+		SwitchMode();
+	end
+	
 	for _, item in pairs(refreshList) do 
 		item:refresh();
 	end
+	
 	Values();
 end
 

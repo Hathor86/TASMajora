@@ -7,7 +7,6 @@ local maxValue = -1;
 
 --Specific UI for Odolwa
 local function Odolwa()
-
 	currentValue = memory.readbyte(MM.Watch.Misc.OdolwaHealth);
 	maxValue = 20;
 	
@@ -19,12 +18,10 @@ local function Odolwa()
 	gui.text(0, 110, string.format("Boss Health: %i/%i", currentValue, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
 	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Green");
-
 end
 
 --Specific UI for Goth
 local function Goth()
-
 	currentValue = memory.readbyte(MM.Watch.Misc.GothHealth);
 	maxValue = 20;
 	
@@ -36,12 +33,10 @@ local function Goth()
 	gui.text(0, 110, string.format("Boss Health: %i/%i", currentValue, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
 	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Green");
-
 end
 
 --Specific UI for Gyorg
 local function Gyorg()
-
 	currentValue = memory.readbyte(MM.Watch.Misc.GyorgHealth);
 	maxValue = 20;
 	
@@ -53,12 +48,10 @@ local function Gyorg()
 	gui.text(0, 110, string.format("Boss Health: %i/%i", currentValue, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
 	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Green");
-
 end
 
 --Specific UI for Twinmold
 local function Twinmold()
-
 	currentValue = memory.readbyte(MM.Watch.Misc.BlueTwinmoldHealth);
 	local currentValue2 = memory.readbyte(MM.Watch.Misc.RedTwinmoldHealth);
 	maxValue = 20;
@@ -76,12 +69,10 @@ local function Twinmold()
 	gui.drawRectangle(0, 140, 202, 15, "White");
 	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Blue");
 	gui.drawRectangle(1, 141, (currentValue2 / maxValue) * 200, 13, _, "Red");
-
 end
 
 --Specific UI for Honey & Darling
 local function Honey()
-
 	if (memory.readbyte(MM.Watch.Status.CurrentDay) == 3) then
 		currentValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingCurrentScoreD3);
 	else
@@ -92,13 +83,11 @@ local function Honey()
 	
 	gui.text(0, 110, string.format("Score: %i/%i", currentValue, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
-	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13, _, "Green");
-
+	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13);
 end
 
 --Refresh the ui
 ContextualUI.Refresh = function()
-
 	currentRoom = memory.read_u16_be(MM.Watch.Status.CurrentMap);
 	if(currentRoom == MM.Dictionnary.ExitsByName["Odolwa"]) then
 		Odolwa();
@@ -113,5 +102,4 @@ ContextualUI.Refresh = function()
 	else
 		maxValue = -1;
 	end
-
 end
