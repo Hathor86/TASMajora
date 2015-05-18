@@ -1,6 +1,7 @@
 -- Frames saved
 HMS Skip -> +/- 988 frames
 Reset -> +/- 600 frames
+SoDT vs Woddfall CS -69 frames (approx.)
 
 Cycle V1 => V2
 585
@@ -17,4 +18,4 @@ Aliens => 2h30 AM
 Sunmask skip => 1 bomb 7chus 1 backflip
 312/234
 --- Drafts
-78487
+80773
