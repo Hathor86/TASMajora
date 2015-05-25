@@ -5,7 +5,7 @@ local flags = {};
 flags["song"] = 0;
 
 local function GotoExit()
-	memory.write_s16_be(MM.Watch.Misc.ExitSetter, MM.Dictionnary.ExitsByName[forms.getproperty(handles["goToExitButton"], "Text")]);
+	memory.write_s16_be(MM.Watch.Misc.ExitSetter, MM.Dictionnary.ExitsByName[forms.getproperty(handles["exitDropDown"], "Text")]);
 	memory.writebyte(MM.Watch.Misc.WarpSetter, 1);
 end
 

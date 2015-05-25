@@ -39,6 +39,7 @@ MM.Watch =
 			,LotteryCode1stByte = 0x1F065F
 			,Picture1stByte = 0x1F0750
 			,HeartContainer = 0x1EF6A4
+			,Owls = 0x1EF6B6
 		}
 	}
 	--Everything about Link
@@ -81,6 +82,20 @@ MM.Dictionnary =
 	Items = {};
 	Exits = {};
 	ExitsByName = {};
+	Owls = 
+	{
+		GreatBay = 1;
+		ZoraCape = 2;
+		Snowhead = 4;
+		MountainVillage = 8;
+		ClockTown = 16;
+		MilkRoad = 32;
+		Woodfall = 64;
+		SouthernSwamp = 128;
+		IkanaCanyon = 256;
+		StoneTower = 512;
+		HiddenOwl = 32768;
+	};
 };
 
 --[[
@@ -432,12 +447,36 @@ MM.Dictionnary.ExitsByName["Ikana Canyon Fairy"] = 0x4640;
 MM.Helper.Z64AngleToDegree = function(Z64Angle)
 	return (Z64Angle / 0xFFFF) * 360;
 end
+
 --Convert regular degree to Z64 engine angle (2bytes)
 MM.Helper.DegreeToZ64Angle = function(angle)
 	return (angle / 360) * 0XFFFF;
 end
+
 --Get X and Y stick coordinate for givan Angle
 MM.Helper.ToCartesian = function(angle)
 	local r = math.pow(math.pow(joypad.get(1)["X Axis"], 2) + math.pow(joypad.get(1)["Y Axis"], 2), 0.5);
 	return math.floor(r * math.cos(angle),0), math.floor(r * math.sin(angle),0);
+end
+
+--Read owls hit value and return a list of owls hit
+MM.Helper.GetOwlsHit = function()
+	local owls = memory.read_u16_be(MM.Watch.Inventory.Quests.Owls);
+	for owl,flag in pairs(MM.Dictionnary.Owls) do
+		if(bit.band(flag, owls) == flag) then
+			print(owl);
+		end
+	end
+end
+
+--Set owls hit from a table of strings 
+--(same values as in the dictionnary)
+MM.Helper.SetOwlsHit = function(...)
+	local owlsHit = 0;
+	for _,owl in pairs(arg) do
+		if(MM.Dictionnary.Owls[owl] ~= nil) then -- if value exists
+			owlsHit = bit.bxor(owlsHit, MM.Dictionnary.Owls[owl]);
+		end
+	end
+	memory.write_u16_be(MM.Watch.Inventory.Quests.Owls, owlsHit);
 end
