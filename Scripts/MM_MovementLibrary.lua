@@ -28,6 +28,7 @@ end
 
 --Simply play specified song
 MovementsHelper.PlaySong = function(songName)
+	buttons = {};
 	if(songName == "SODT") then
 		for idx, button in ipairs(MovementsHelper.Songs[songName]) do
 			buttons[button] = true;
@@ -49,6 +50,7 @@ MovementsHelper.PlaySong = function(songName)
 end
 
 MovementsHelper.ReverseCameraAngle = function(saveStateSlot)
+	buttons = {};
 	savestate.loadslot(saveStateSlot);
 	
 	buttons["Z"] = true;

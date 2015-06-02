@@ -43,6 +43,6 @@ AdditionalWindows.AdvancedConrols.Refresh = function()
 	
 	if (flags["revertcam"] == 1) then
 		flags["revertcam"] = 0;
-		MovementsHelper.ReverseCameraAngle(0);
+		MovementsHelper.ReverseCameraAngle(1);
 	end
 end
