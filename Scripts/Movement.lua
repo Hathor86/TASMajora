@@ -6,7 +6,7 @@
 
 --MovementsHelper.PlaySong("SOS");
 
-MovementsHelper.ReverseCameraAngle(2);
+--MovementsHelper.ReverseCameraAngle(2);
 
 
 local function Test()
@@ -43,4 +43,4 @@ local function Test()
 	end
 	f:close();
 end
---Test();
+Test();

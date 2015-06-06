@@ -31,7 +31,7 @@ MM.Watch =
 			Postman = 0x1EF6F8
 		}
 		,MasksBySlotId = {}
-		-- HP, Songs, Remains,....
+		-- HP, Songs, Remains, Quiver,....
 		,Quests = 
 		{
 			SkutullaCode1stByte = 0x1F0665
@@ -40,6 +40,7 @@ MM.Watch =
 			,Picture1stByte = 0x1F0750
 			,HeartContainer = 0x1EF6A4
 			,Owls = 0x1EF6B6
+			,Status = 0x1EF72C
 		}
 	}
 	--Everything about Link
@@ -95,6 +96,41 @@ MM.Dictionnary =
 		IkanaCanyon = 256;
 		StoneTower = 512;
 		HiddenOwl = 32768;
+	};
+	QuestsStatus = 
+	{
+		OdolwaRemains = 1;
+		GohtRemains = 2;
+		GyorgRemains = 4;
+		TwinmoldRemains = 8;
+		Unknow1 = 16;
+		Unknow2= 32;
+		SonataOfAwakening = 64;
+		GoronLullaby = 128;
+		NewWaveBossaNova = 256;
+		ElegyOfEmptiness = 512;
+		OathToOrder = 1024;
+		SongOfSun = 2048; --Unused
+		SongOfTime = 4096; 
+		SongOfHealing = 8192; 
+		EponaSong = 16384; 
+		SongOfSoaring = 32768; 
+		SongOfStorm = 65536; 
+		SongOfSomething = 131072; --Saria's Song? Unused
+		BombersNotebook = 262144;
+		Unknow3 = 524288;
+		Unknow4 = 1048576;
+		Unknow5 = 2097152;
+		Unknow6 = 4194304;
+		Unknow7 = 8388608;
+		LullabyIntro = 16777216;
+		Unknow8 = 33554432;
+		Unknow9 = 67108864;
+		Unknow10 = 134217728;
+		HP1 = 268435456;
+		HP2 = 536870912;
+		Unknow11 = 1073741824;
+		Unknow12 = 2147483648;
 	};
 };
 
@@ -433,6 +469,7 @@ MM.Dictionnary.Exits[0x4610] = "Woodfall Fairy";
 MM.Dictionnary.Exits[0x4620] = "Snowhead Fairy";
 MM.Dictionnary.Exits[0x4630] = "Zora Cap Fairy";
 MM.Dictionnary.Exits[0x4640] = "Ikana Canyon Fairy";
+MM.Dictionnary.Exits[0x9230] = "Evan's Room";
 
 MM.Dictionnary.ExitsByName["Honey & Darling"] = 0x0800;
 MM.Dictionnary.ExitsByName["Odolwa"] = 0x3800;
@@ -442,6 +479,7 @@ MM.Dictionnary.ExitsByName["Woodfall Fairy"] = 0x4610;
 MM.Dictionnary.ExitsByName["Snowhead Fairy"] = 0x4620;
 MM.Dictionnary.ExitsByName["Zora Cap Fairy"] = 0x4630;
 MM.Dictionnary.ExitsByName["Ikana Canyon Fairy"] = 0x4640;
+MM.Dictionnary.ExitsByName["Evan's Room"] = 0x9230;
 
 --Convert an angle from Z64 engine (2 bytes) to regular degrees
 MM.Helper.Z64AngleToDegree = function(Z64Angle)
@@ -453,7 +491,7 @@ MM.Helper.DegreeToZ64Angle = function(angle)
 	return (angle / 360) * 0XFFFF;
 end
 
---Get X and Y stick coordinate for givan Angle
+--Get X and Y stick coordinate for given Angle
 MM.Helper.ToCartesian = function(angle)
 	local r = math.pow(math.pow(joypad.get(1)["X Axis"], 2) + math.pow(joypad.get(1)["Y Axis"], 2), 0.5);
 	return math.floor(r * math.cos(angle),0), math.floor(r * math.sin(angle),0);
@@ -461,12 +499,14 @@ end
 
 --Read owls hit value and return a list of owls hit
 MM.Helper.GetOwlsHit = function()
-	local owls = memory.read_u16_be(MM.Watch.Inventory.Quests.Owls);
+	local owls = memory.read_s16_be(MM.Watch.Inventory.Quests.Owls);
+	local val = {};
 	for owl,flag in pairs(MM.Dictionnary.Owls) do
 		if(bit.band(flag, owls) == flag) then
-			print(owl);
+			val[owl] = 1;
 		end
 	end
+	return val;
 end
 
 --Set owls hit from a table of strings 
@@ -478,5 +518,29 @@ MM.Helper.SetOwlsHit = function(...)
 			owlsHit = bit.bxor(owlsHit, MM.Dictionnary.Owls[owl]);
 		end
 	end
-	memory.write_u16_be(MM.Watch.Inventory.Quests.Owls, owlsHit);
+	memory.write_s16_be(MM.Watch.Inventory.Quests.Owls, owlsHit);
+end
+
+--Read Quests Status and return a list
+MM.Helper.GetQuestStatus = function()
+	local questStatus = memory.read_s32_be(MM.Watch.Inventory.Quests.Status);
+	local val = {};
+	for item,flag in pairs(MM.Dictionnary.QuestsStatus) do
+		if(bit.band(flag, questStatus) == flag) then
+			val[item] = 1;
+		end
+	end
+	return val;
+end
+
+--Set Quests Status from a table of strings 
+--(same values as in the dictionnary)
+MM.Helper.SetQuestStatus = function(...)
+	local questStatus = 0;
+	for _,item in pairs(arg) do
+		if(MM.Dictionnary.QuestsStatus[item] ~= nil) then -- if value exists
+			questStatus = bit.bxor(questStatus, MM.Dictionnary.QuestsStatus[item]);
+		end
+	end
+	memory.write_s32_be(MM.Watch.Inventory.Quests.Status, questStatus);
 end

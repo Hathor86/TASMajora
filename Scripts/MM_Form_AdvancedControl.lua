@@ -18,7 +18,7 @@ AdditionalWindows.AdvancedConrols.Init = function()
 	local form = forms.newform(200, 200, "Controls");
 
 	forms.label(form, "Song Player", 0, 0, 75, 15, false);
-	handles["song"] = forms.dropdown(form, {"SOT" ,"SODT", "SOH", "SOE", "SOS", "SOST", "SOA", "GLI", "GL", "NWBN", "EOE", "OOA"}, 0, 15, 50, 15);
+	handles["song"] = forms.dropdown(form, {"Evan", "SOT" ,"SODT", "SOH", "SOE", "SOS", "SOST", "SOA", "GLI", "GL", "NWBN", "EOE", "OOA"}, 0, 15, 50, 15);
 	forms.button(form, "Play", function() SetFlag("song") end, 55, 15, 35, 22);
 	
 	forms.label(form, "Exit Setter", 0, 45, 75, 15, false);

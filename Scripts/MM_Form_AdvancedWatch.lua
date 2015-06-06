@@ -6,11 +6,15 @@ local skulltullaCode = "";
 local lotteryCodes = {};
 local health = "";
 local maxHealth = "";
+local owls = {};
+local questsStatus = {};
 local buttons = {};
 
 local refreshList = {};
 local editBoxes = {};
 local readOnly = {};
+local refreshListCount = 0;
+local currentRefresh = 1;
 
 local editMode = true;
 local valueSetter = 0;
@@ -136,6 +140,27 @@ function EditableItem:refresh()
 	end
 end
 
+--EditableCheckbox class
+local EditableCheckbox = 
+{
+	formHandle = 0;
+	checkboxHandle = 0;
+};
+--Constructor
+function EditableCheckbox:new(form, x, y, text)
+	local o = {};
+	setmetatable(o, self);
+	self.__index = self;
+	
+	o.formHandle = form;
+	o.checkboxHandle = forms.checkbox(form, text, x, y);
+	return o;
+end
+--Refresh method
+function EditableCheckbox:refresh()
+	forms.setproperty(self.checkboxHandle, "Checked", owls[forms.getproperty(self.checkboxHandle, "Text")] ~= nil or questsStatus[forms.getproperty(self.checkboxHandle, "Text")] ~= nil);
+end
+
 --Load values
 local function Load()
 	bombersCode = "";
@@ -160,6 +185,8 @@ local function Load()
 	
 	health = memory.read_s16_be(MM.Watch.Link.Health);
 	maxHealth = memory.read_s16_be(MM.Watch.Inventory.Quests.HeartContainer);
+	owls = MM.Helper.GetOwlsHit();
+	questsStatus = MM.Helper.GetQuestStatus();
 end
 
 --Write edited values into memory
@@ -209,15 +236,20 @@ local function SwitchMode()
 		forms.setproperty(handle.textBoxHandle, "Enabled", editMode);
 	end
 	
-	for _, item in pairs(refreshList) do 
-		forms.setproperty(item.dropDownHandle, "Enabled", editMode);
-		forms.setproperty(item.ammoEditHandle, "Enabled", editMode);
+	for _, item in pairs(refreshList) do
+		if(item.dropDownHandle ~= nil) then
+			forms.setproperty(item.dropDownHandle, "Enabled", editMode);
+			forms.setproperty(item.ammoEditHandle, "Enabled", editMode);
+		end
+		if(item.textBoxHandle ~= nil) then
+			forms.setproperty(item.textBoxHandle, "Enabled", editMode);
+		end
 	end
 end
 
 --Initialize the window
 AdditionalWindows.Watches.Init = function()
-	local form = forms.newform(800, 800, "Watches");
+	local form = forms.newform(800, 1000, "Watches");
 	
 	editBoxes["bombers"] = EditableValue:new(form, 0, 0, "Bombers Code", bombersCode);
 	editBoxes["skulltula"] = EditableValue:new(form, 0, 20, "Skulltula Code", skulltullaCode);
@@ -256,7 +288,35 @@ AdditionalWindows.Watches.Init = function()
 		end
 	end
 	
-	valueSetter = forms.button(form, "Set !", SetValues, 0 ,650);
+	forms.label(form, "Owls", 0, 550, 60, 20, false);
+	local y = 570;
+	for owl,flag in pairs(MM.Dictionnary.Owls) do
+		tmp = EditableCheckbox:new(form, 0, y, owl);
+		table.insert(refreshList, tmp);
+		y = y + 20;
+	end
+	
+	forms.label(form, "Quest Status", 120, 550, 60, 20, false);
+	y = 570;
+	local x = 120;
+	local i = 0;
+	for item,flag in pairs(MM.Dictionnary.QuestsStatus) do
+		tmp = EditableCheckbox:new(form, x, y, item);
+		table.insert(refreshList, tmp);
+		y = y + 20;
+		i = i + 1;
+		if(i == 11) then
+			x = x + 120;
+			y = 570;
+			i = 0;
+		end
+	end
+	
+	for _, item in pairs(refreshList) do 
+		refreshListCount = refreshListCount + 1;
+	end
+	
+	valueSetter = forms.button(form, "Set !", SetValues, 700 ,650);
 end
 
 --Update the lottery code
@@ -266,7 +326,7 @@ local function Values()
 	--local jumpCount = 0;
 	
 	--gui.text(0, firstLine, );	
-	--[[for i = 0, 5 do		
+	--[[for i = 0, 5 do
 		tab = "";
 		if skulltullaCode[i] == 0 then
 			color = "red";
@@ -323,11 +383,18 @@ AdditionalWindows.Watches.Refresh = function()
 		SwitchMode();
 	end
 	
-	for _, item in pairs(refreshList) do 
-		item:refresh();
+	for idx, item in pairs(refreshList) do
+		if(idx == currentRefresh) then
+			if(currentRefresh == refreshListCount) then
+				currentRefresh = 1;
+			else
+				currentRefresh = currentRefresh + 1;
+			end
+			item:refresh();
+			break;
+		end
 	end
 	
 	Values();
 end
-
 Load();
