@@ -11,8 +11,7 @@ SystemID N64
 1F057F	b	s	1	RDRAM	Great Spin Flag
 1EF72A	b	h	1	RDRAM	Wallet (0; Base; 0x10 Adult; 0x20 Giant)
 1EF72B	b	s	1	RDRAM	Quiver / Bomb bag flag (0x1B => both 40)
-1EF72C	b	h	1	RDRAM	HP Flag (0x10 for 1 etc..)
-1EF72D	d	s	1	RDRAM	Song, Boss flag (3bytes?)
+1EF72C	d	u	1	RDRAM	Quest Status's Flag(H.P., Boss and songs)
 1EF73A	b	s	1	RDRAM	Woodfall Small Keys
 1EF73B	b	s	1	RDRAM	Snowhead Small Keys
 1EF73C	b	s	1	RDRAM	Great Bay Small Keys
@@ -28,6 +27,10 @@ SystemID N64
 1F0662	b	h	1	RDRAM	Lottery Day 3 - Digit 1
 1F0665	b	h	1	RDRAM	Skulltula code digit 1
 1F066B	b	h	1	RDRAM	Bombers code digit 1
+410A09	b	s	1	RDRAM	Honey & Darling Score
+410A0D	b	s	1	RDRAM	Honey & Darling "Perfect Score" (aka # target to hit)
+40FC29	b	s	1	RDRAM	Honey & Darling Score (Day 3)
+40FC2D	b	s	1	RDRAM	Honey & Darling "Perfect Score (Day 3)" (aka # target to hit)
 1F0750	b	h	1	RDRAM	Picture 1st Byte
 1EF6E0	b	s	1	RDRAM	Slot 0 (Ocarina)
 1EF6E1	b	s	1	RDRAM	Slot 1 (Hero's Bow)
@@ -93,7 +96,7 @@ SystemID N64
 1EF68B	b	u	1	RDRAM	Current Day
 1EF67C	w	u	1	RDRAM	Time
 1EF686	w	s	1	RDRAM	Time speed
-1EF6AE	w	u	1	RDRAM	Trucs
+1EF6AE	w	u	1	RDRAM	Things (RNG?)
 1F06F6	w	u	1	RDRAM	Bottle 1 hot spring water timer
 1F06FE	w	u	1	RDRAM	Bottle 2 hot spring water timer
 1F0706	w	u	1	RDRAM	Bottle 3 hot spring water timer
@@ -131,8 +134,8 @@ SystemID N64
 416927	b	u	1	RDRAM	Odolwa Health
 416FD7	b	u	1	RDRAM	Goth Health
 416567	b	u	1	RDRAM	Gyorg Health
-41CAE7	b	u	1	RDRAM	Blue Twinmold Helath
-415097	b	u	1	RDRAM	Red Twinmold Helath
+41CAE7	b	u	1	RDRAM	Blue Twinmold Health
+415097	b	u	1	RDRAM	Red Twinmold Health
 22A138	w	u	1	RDRAM	Camera 1 (Unknow stuff)
 24A448	w	u	1	RDRAM	Camera 2 (Unknow stuff)
 

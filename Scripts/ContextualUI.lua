@@ -91,7 +91,7 @@ end
 local function HotSpringWaterTimer()
 	local timer = memory.read_u16_be(MM.Watch.Misc.HSW1Timer);
 	if (timer ~= 0) then
-		gui.text(0, 110, string.format("Hot Spring Water 1: %.2f", timer * MM.Helper.Constant.OneSecond / 3600 * 60));
+		gui.text(0, 110, string.format("Hot Spring Water 1: %.2f", timer * MM.Helper.Constant.OneGameSecond / 60));
 	end
 end
 

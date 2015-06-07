@@ -26,6 +26,7 @@ AdditionalWindows.AdvancedConrols.Init = function()
 	handles["goToExitButton"] = forms.button(form, "Go", GotoExit, 130, 60, 35, 22);
 	
 	forms.button(form, "Revert Camera Angle", function() SetFlag("revertcam") end, 0, 85, 125, 22);
+	handles["savestate"] = forms.dropdown(form, {"1","2","3","4","5","6","7","8","9"}, 130,85, 35, 15);
 end
 
 AdditionalWindows.AdvancedConrols.Refresh = function()
@@ -43,6 +44,6 @@ AdditionalWindows.AdvancedConrols.Refresh = function()
 	
 	if (flags["revertcam"] == 1) then
 		flags["revertcam"] = 0;
-		MovementsHelper.ReverseCameraAngle(1);
+		MovementsHelper.ReverseCameraAngle(tonumber(forms.getproperty(handles["savestate"], "Text")));
 	end
 end

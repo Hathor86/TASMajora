@@ -6,7 +6,7 @@ MM.Helper = {};
 
 MM.Helper.Constant =
 {
-	OneSecond = 86400 / 65535; --Number of real seconds / IG seconds. FF FF (65535) is midnight
+	OneGameSecond = 86400 / 65535; --Number of real seconds / IG seconds. FF FF (65535) is midnight
 };
 
 MM.Watch = 

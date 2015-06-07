@@ -241,8 +241,8 @@ local function SwitchMode()
 			forms.setproperty(item.dropDownHandle, "Enabled", editMode);
 			forms.setproperty(item.ammoEditHandle, "Enabled", editMode);
 		end
-		if(item.textBoxHandle ~= nil) then
-			forms.setproperty(item.textBoxHandle, "Enabled", editMode);
+		if(item.checkboxHandle ~= nil) then
+			forms.setproperty(item.checkboxHandle, "Enabled", editMode);
 		end
 	end
 end
@@ -321,8 +321,8 @@ AdditionalWindows.Watches.Init = function()
 	valueSetter = forms.button(form, "Set !", SetValues, 700 ,650);
 end
 
---Update the lottery code
-local function Values()
+--Update read only stuff
+local function Update()
 	--local color = "white";
 	--local tab = "";
 	--local jumpCount = 0;
@@ -405,6 +405,6 @@ AdditionalWindows.Watches.Refresh = function()
 		end
 	end
 	
-	Values();
+	Update();
 end
 Load();
