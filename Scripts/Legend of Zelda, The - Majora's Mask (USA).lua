@@ -6,7 +6,6 @@ local cLeft = 0x1EF6BD;
 local cDown = 0x1EF6BE;
 local cRight = 0x1EF6BF;
 
-local oneSecond = 86400 / 65535; --Number of real seconds / IG seconds. FF FF (65535) is midnight
 local firstLine = 110;
 local spacing = 12;
 
@@ -45,8 +44,8 @@ end
 
 --Display accurate IG clock
 local function clockDisplay()
-	hour = math.floor(memory.read_u16_be(MM.Watch.Status.IgTime) * oneSecond / 3600);
-	decimalMinutes = (memory.read_u16_be(MM.Watch.Status.IgTime) * oneSecond / 3600) - hour;
+	hour = math.floor(memory.read_u16_be(MM.Watch.Status.IgTime) * MM.Helper.Constant.OneSecond / 3600);
+	decimalMinutes = (memory.read_u16_be(MM.Watch.Status.IgTime) * MM.Helper.Constant.OneSecond / 3600) - hour;
 	gui.text(client.screenwidth() / 2.6, 3, string.format("%02.0f:%02.0f:%02.0f (day %i)", hour, math.floor(decimalMinutes * 60), (decimalMinutes * 60 - math.floor(decimalMinutes * 60)) * 60, memory.readbyte(MM.Watch.Status.CurrentDay)), _, _, "bottomleft");
 end
 

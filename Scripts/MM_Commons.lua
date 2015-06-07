@@ -4,6 +4,11 @@ This file holds all common stuff espacially ram adresses
 MM = {};
 MM.Helper = {};
 
+MM.Helper.Constant =
+{
+	OneSecond = 86400 / 65535; --Number of real seconds / IG seconds. FF FF (65535) is midnight
+};
+
 MM.Watch = 
 {
 	--Everything with the pause menu
@@ -58,6 +63,8 @@ MM.Watch =
 		CurrentDay = 0x1EF68B
 		,IgTime = 0x1EF67C
 		,CurrentMap = 0x1EF672
+		
+		,SoarCursor = 0x3FDA91
 	}
 	
 	--Misc Stuff
@@ -65,7 +72,8 @@ MM.Watch =
 	{
 		HoneyAndDarlingCurrentScore = 0x410A09
 		,HoneyAndDarlingCurrentScoreD3 = 0x40FC29
-		,HoneyAndDarlingPerfectScore = 0x40FC2D
+		,HoneyAndDarlingPerfectScore = 0x410A0D
+		,HoneyAndDarlingPerfectScoreD3 = 0x40FC2D
 		
 		,ExitSetter = 0x3FF39A
 		,WarpSetter = 0x3FF395
@@ -75,6 +83,15 @@ MM.Watch =
 		,GyorgHealth = 0x416567
 		,BlueTwinmoldHealth = 0x41CAE7
 		,RedTwinmoldHealth = 0x415097
+		
+		,EyeGoreHealth = 0x40F907
+		
+		,HSW1Timer = 0x1F06F6
+		,HSW2Timer = 0x1F06FE
+		,HSW3Timer = 0x1F0706
+		,HSW4Timer = 0x1F070E
+		,HSW5Timer = 0x1F0716
+		,HSW6Timer = 0x1F071E
 	}
 };
 
@@ -131,6 +148,20 @@ MM.Dictionnary =
 		HP2 = 536870912;
 		Unknow11 = 1073741824;
 		Unknow12 = 2147483648;
+	};
+	IndexWarp = 
+	{
+		"Great Bay"
+		,"Zora Cape"
+		,"Snowhead"
+		,"Mountain Village"
+		,"Clock Town"
+		,"Milk Road"
+		,"Woodfall"
+		,"Southern Swamp"
+		,"Ikana Canyon"
+		,"Stone Tower"
+		,"Sofltlock"
 	};
 };
 

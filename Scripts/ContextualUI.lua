@@ -75,15 +75,24 @@ end
 local function Honey()
 	if (memory.readbyte(MM.Watch.Status.CurrentDay) == 3) then
 		currentValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingCurrentScoreD3);
+		maxValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingPerfectScoreD3);
 	else
 		currentValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingCurrentScore);
+		maxValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingPerfectScore);
 	end
 	
-	maxValue = memory.readbyte(MM.Watch.Misc.HoneyAndDarlingPerfectScore);
+	
 	
 	gui.text(0, 110, string.format("Score: %i/%i", currentValue, maxValue));
 	gui.drawRectangle(0, 125, 202, 15, "White");
 	gui.drawRectangle(1, 126, (currentValue / maxValue) * 200, 13);
+end
+
+local function HotSpringWaterTimer()
+	local timer = memory.read_u16_be(MM.Watch.Misc.HSW1Timer);
+	if (timer ~= 0) then
+		gui.text(0, 110, string.format("Hot Spring Water 1: %.2f", timer * MM.Helper.Constant.OneSecond / 3600 * 60));
+	end
 end
 
 --Refresh the ui
@@ -102,4 +111,5 @@ ContextualUI.Refresh = function()
 	else
 		maxValue = -1;
 	end
+	HotSpringWaterTimer();
 end

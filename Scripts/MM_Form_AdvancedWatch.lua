@@ -249,7 +249,7 @@ end
 
 --Initialize the window
 AdditionalWindows.Watches.Init = function()
-	local form = forms.newform(800, 1000, "Watches");
+	local form = forms.newform(800, 830, "Watches");
 	
 	editBoxes["bombers"] = EditableValue:new(form, 0, 0, "Bombers Code", bombersCode);
 	editBoxes["skulltula"] = EditableValue:new(form, 0, 20, "Skulltula Code", skulltullaCode);
@@ -257,6 +257,8 @@ AdditionalWindows.Watches.Init = function()
 	
 	editBoxes["health"] = EditableValue:new(form, 200, 0, "Current health", health, 100);
 	editBoxes["maxHealth"] = EditableValue:new(form, 200, 20, "Heart container", maxHealth / 16, 100);
+	
+	readOnly["soar"] = ReadOnlyValue:new(form, 400, 0, "Soar to", 0);
 	
 	readOnly["stick"] = ReadOnlyValue:new(form, 625, 0, "Stick Angle", 0);
 	readOnly["Left Sidehop"] = ReadOnlyValue:new(form, 625, 20, "Left Sidehop", 0);
@@ -354,18 +356,26 @@ local function Values()
 		--gui.text(currentWidth / 2.5 + i * 20, firstLine + spacing, string.format("%s%i", tab, skulltullaCode[i]), _, color);
 	end
 	--gui.text(0, firstLine + spacing, string.format("Skulltula Code (%s jumps):", jumpCount));]]
+	local tmpValue;
 	buttons = joypad.get(1);
 	
 	editBoxes["bombers"]:refresh(bombersCode);
 	editBoxes["skulltula"]:refresh(skulltullaCode);
 	
-	local currentDayValue = memory.readbyte(MM.Watch.Status.CurrentDay);
-	if (currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3) then
-		editBoxes["lottery"]:refresh(lotteryCodes[currentDayValue - 1]);
+	tmpValue = memory.readbyte(MM.Watch.Status.CurrentDay);
+	if (tmpValue == 1 or tmpValue == 2 or tmpValue == 3) then
+		editBoxes["lottery"]:refresh(lotteryCodes[tmpValue - 1]);
 	end
 	
 	editBoxes["health"]:refresh(health);
 	editBoxes["maxHealth"]:refresh(maxHealth);
+	
+	tmpValue = memory.readbyte(MM.Watch.Status.SoarCursor);
+	if(tmpValue < 11) then
+		readOnly["soar"]:refresh(MM.Dictionnary.IndexWarp[tmpValue + 1]);
+	else
+		readOnly["soar"]:refresh(MM.Dictionnary.IndexWarp[1]);
+	end
 	
 	local currentAngle = math.atan2(buttons["Y Axis"], buttons["X Axis"]);
 	readOnly["stick"]:refresh(string.format("%.2f", math.deg(currentAngle)));
