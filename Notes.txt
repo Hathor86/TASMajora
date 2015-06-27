@@ -16,8 +16,9 @@ Mountain village bridge shorter than by lake
 H&D 1 => Roll == Non roll
 
 Room Key => 2h15 PM
-Aliens => 2h30 AM
+Aliens => 2h30 AM; End => 03:49:15
 Sunmask skip => 1 bomb 7chus 1 backflip
 312/234
 --- Drafts
 140124
+1231
