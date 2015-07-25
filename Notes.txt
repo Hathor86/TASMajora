@@ -8,6 +8,8 @@ Cycle V1 => V2
 Cycle V2 => V3
 669
 
+H&D2 Save about 44 frames (51:81 vs 51:37)
+
 5075 frames ahead from WR@Goron Mask
 
 -- Misc
@@ -40,4 +42,4 @@ Against a cost of little time spent (that's what I try to measure), I can collec
 => Collect 50 from dodongo
 
 --- Drafts
-156937
+173216
