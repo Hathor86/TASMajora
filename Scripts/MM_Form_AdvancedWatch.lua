@@ -1,13 +1,19 @@
 AdditionalWindows = {};
 AdditionalWindows.Watches = {};
 
+local currentDay = "";
 local bombersCode = "";
 local skulltullaCode = "";
 local lotteryCodes = {};
 local health = "";
 local maxHealth = "";
+local soarCursor = "";
+local swordSwing = "";
 local owls = {};
 local questsStatus = {};
+local temple = {};
+local skullHouse = {};
+
 local buttons = {};
 
 local refreshList = {};
@@ -183,10 +189,32 @@ local function Load()
 		k = k + 1;
 	end
 	
+	currentDay = memory.readbyte(MM.Watch.Status.CurrentDay);
 	health = memory.read_s16_be(MM.Watch.Link.Health);
 	maxHealth = memory.read_s16_be(MM.Watch.Inventory.Quests.HeartContainer);
+	soarCursor = memory.readbyte(MM.Watch.Status.SoarCursor);
+	swordSwing = memory.read_s8(MM.Watch.Status.SwordSwing);
 	owls = MM.Helper.GetOwlsHit();
 	questsStatus = MM.Helper.GetQuestStatus();
+	
+	temple["wood"] = {};
+	temple["wood"].keys = memory.readbyte(MM.Watch.Inventory.Quests.WoodfallKeys);
+	temple["wood"].fairies = memory.readbyte(MM.Watch.Inventory.Quests.WoodfallFairies);
+	
+	temple["snow"] = {};
+	temple["snow"].keys = memory.readbyte(MM.Watch.Inventory.Quests.SnowheadKeys);
+	temple["snow"].fairies = memory.readbyte(MM.Watch.Inventory.Quests.SnowheadFairies);
+	
+	temple["bay"] = {};
+	temple["bay"].keys = memory.readbyte(MM.Watch.Inventory.Quests.GreatBayKeys);
+	temple["bay"].fairies = memory.readbyte(MM.Watch.Inventory.Quests.GreatBayFairies);
+	
+	temple["stone"] = {};
+	temple["stone"].keys = memory.readbyte(MM.Watch.Inventory.Quests.StoneTowerKeys);
+	temple["stone"].fairies = memory.readbyte(MM.Watch.Inventory.Quests.StoneTowerFairies);
+	
+	skullHouse["swamp"] = memory.readbyte(MM.Watch.Inventory.Quests.SwampSkulltulaToken);
+	skullHouse["ocean"] = memory.readbyte(MM.Watch.Inventory.Quests.OceansideSkulltulaToken);
 end
 
 --Write edited values into memory
@@ -209,11 +237,10 @@ local function SetValues()
 			end
 			
 			if (key == "lottery") then
-				if (currentDayValue == 1 or currentDayValue == 2 or currentDayValue == 3) then
+				if (currentDay == 1 or currentDay == 2 or currentDay == 3) then
 					local newcode = forms.gettext(handle.textBoxHandle);
-					local currentDayValue = memory.readbyte(MM.Watch.Status.CurrentDay);
 					for i = 0, 2 do
-						memory.writebyte(MM.Watch.Inventory.Quests.LotteryCode1stByte.LotteryCode1stByte + (currentDayValue - 1) * 3 + i, tonumber(string.sub(newcode,i + 1,i + 1)));
+						memory.writebyte(MM.Watch.Inventory.Quests.LotteryCode1stByte.LotteryCode1stByte + (currentDay - 1) * 3 + i, tonumber(string.sub(newcode,i + 1,i + 1)));
 					end
 				end
 			end
@@ -260,6 +287,8 @@ AdditionalWindows.Watches.Init = function()
 	
 	readOnly["soar"] = ReadOnlyValue:new(form, 400, 0, "Soar to", 0);
 	
+	readOnly["ISG"] = ReadOnlyValue:new(form, 400, 20, "ISG", 0);
+	
 	readOnly["stick"] = ReadOnlyValue:new(form, 625, 0, "Stick Angle", 0);
 	readOnly["Left Sidehop"] = ReadOnlyValue:new(form, 625, 20, "Left Sidehop", 0);
 	readOnly["Right Sidehop"] = ReadOnlyValue:new(form, 625, 40, "Right Sidehop", 0);
@@ -272,7 +301,6 @@ AdditionalWindows.Watches.Init = function()
 		for j = 0, 5 do
 			tmp = EditableItem:new(form, j * 125, i * EditableItem.Height + 100, k);
 			forms.setproperty(tmp.dropDownHandle, "Text", MM.Dictionnary.Items[memory.readbyte(MM.Watch.Inventory.ItemsBySlotID[tmp.slotID])]);
-			tmp:refresh();
 			table.insert(refreshList, tmp);
 			k = k + 1;
 		end
@@ -284,7 +312,6 @@ AdditionalWindows.Watches.Init = function()
 		for j = 0, 5 do
 			tmp = EditableItem:new(form, j * 125, i * EditableItem.Height + 340, k);
 			forms.setproperty(tmp.dropDownHandle, "Text", MM.Dictionnary.Items[memory.readbyte(MM.Watch.Inventory.MasksBySlotId[tmp.slotID - 24])]);
-			tmp:refresh();
 			table.insert(refreshList, tmp);
 			k = k + 1;
 		end
@@ -314,11 +341,43 @@ AdditionalWindows.Watches.Init = function()
 		end
 	end
 	
+	x = 480;
+	y = 570;
+	editBoxes["woodK"] = EditableValue:new(form, x, y, "Woodfall keys", temple["wood"].keys, 100);
+	x = x + 160;
+	editBoxes["woodF"] = EditableValue:new(form, x, y, "Fairies", temple["wood"].fairies, 50);
+	y = y + 20;
+	
+	x = 480;
+	editBoxes["snowK"] = EditableValue:new(form, x, y, "Snowhead keys", temple["snow"].keys, 100);
+	x = x + 160;
+	editBoxes["snowF"] = EditableValue:new(form, x, y, "Fairies", temple["snow"].fairies, 50);
+	y = y + 20;
+	
+	x = 480;
+	editBoxes["bayK"] = EditableValue:new(form, x, y, "Great Bay keys", temple["bay"].keys, 100);
+	x = x + 160;
+	editBoxes["bayF"] = EditableValue:new(form, x, y, "Fairies", temple["bay"].fairies, 50);
+	y = y + 20;
+	
+	x = 480;
+	editBoxes["stoneK"] = EditableValue:new(form, x, y, "Stone Tower keys", temple["stone"].keys, 100);
+	x = x + 160;
+	editBoxes["stoneF"] = EditableValue:new(form, x, y, "Fairies", temple["stone"].fairies, 50);
+	y = y + 40;
+	
+	x = 480;
+	editBoxes["swampSkull"] = EditableValue:new(form, x, y, "Swamp Skull Tokens", skullHouse["swamp"], 100);
+	x = x + 160;
+	editBoxes["oceanSkull"] = EditableValue:new(form, x, y, "Ocean Skull Tokens", skullHouse["ocean"], 50);
+	y = y + 20;
+	
 	for _, item in pairs(refreshList) do 
 		refreshListCount = refreshListCount + 1;
 	end
 	
-	valueSetter = forms.button(form, "Set !", SetValues, 700 ,650);
+	
+	valueSetter = forms.button(form, "Set !", SetValues, 700 ,750);
 end
 
 --Update read only stuff
@@ -356,26 +415,25 @@ local function Update()
 		--gui.text(currentWidth / 2.5 + i * 20, firstLine + spacing, string.format("%s%i", tab, skulltullaCode[i]), _, color);
 	end
 	--gui.text(0, firstLine + spacing, string.format("Skulltula Code (%s jumps):", jumpCount));]]
-	local tmpValue;
 	buttons = joypad.get(1);
 	
 	editBoxes["bombers"]:refresh(bombersCode);
 	editBoxes["skulltula"]:refresh(skulltullaCode);
 	
-	tmpValue = memory.readbyte(MM.Watch.Status.CurrentDay);
-	if (tmpValue == 1 or tmpValue == 2 or tmpValue == 3) then
-		editBoxes["lottery"]:refresh(lotteryCodes[tmpValue - 1]);
+	if (currentDay == 1 or currentDay == 2 or currentDay == 3) then
+		editBoxes["lottery"]:refresh(lotteryCodes[currentDay - 1]);
 	end
 	
 	editBoxes["health"]:refresh(health);
 	editBoxes["maxHealth"]:refresh(maxHealth);
 	
-	tmpValue = memory.readbyte(MM.Watch.Status.SoarCursor);
-	if(tmpValue < 11) then
-		readOnly["soar"]:refresh(MM.Dictionnary.IndexWarp[tmpValue + 1]);
+	if(soarCursor < 11) then
+		readOnly["soar"]:refresh(MM.Dictionnary.IndexWarp[soarCursor + 1]);
 	else
 		readOnly["soar"]:refresh(MM.Dictionnary.IndexWarp[1]);
 	end
+	
+	readOnly["ISG"]:refresh(swordSwing);
 	
 	local currentAngle = math.atan2(buttons["Y Axis"], buttons["X Axis"]);
 	readOnly["stick"]:refresh(string.format("%.2f", math.deg(currentAngle)));
@@ -393,7 +451,8 @@ AdditionalWindows.Watches.Refresh = function()
 		SwitchMode();
 	end
 	
-	for idx, item in pairs(refreshList) do
+	--Playable Mode
+	--[[for idx, item in pairs(refreshList) do
 		if(idx == currentRefresh) then
 			if(currentRefresh == refreshListCount) then
 				currentRefresh = 1;
@@ -403,6 +462,11 @@ AdditionalWindows.Watches.Refresh = function()
 			item:refresh();
 			break;
 		end
+	end]]
+	
+	--TAS Mode
+	for _, item in pairs(refreshList) do
+		item:refresh();
 	end
 	
 	Update();

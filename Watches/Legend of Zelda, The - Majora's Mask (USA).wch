@@ -104,7 +104,7 @@ SystemID N64
 1F0716	w	u	1	RDRAM	Bottle 5 hot spring water timer
 1F071E	w	u	1	RDRAM	Bottle 6 hot spring water timer
 1F067F	b	h	1	RDRAM	Some stuff with dog race
-40088B	b	s	1	RDRAM	ISG
+40088B	b	s	1	RDRAM	ISG (Sword swing)
 4008D9	b	u	1	RDRAM	Stick Lit
 1F067D	b	s	1	RDRAM	Pause disabler
 1F0680	b	s	1	RDRAM	Button disabler

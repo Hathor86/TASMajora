@@ -95,6 +95,13 @@ local function HotSpringWaterTimer()
 	end
 end
 
+local function GiveRupees()
+	local give = memory.read_s16_be(MM.Watch.Misc.GiveRupees);
+	if(give ~= 0) then
+		gui.text(0, 110, string.format("Giving rupees: %i", give));
+	end
+end
+
 --Refresh the ui
 ContextualUI.Refresh = function()
 	currentRoom = memory.read_u16_be(MM.Watch.Status.CurrentMap);
@@ -112,4 +119,5 @@ ContextualUI.Refresh = function()
 		maxValue = -1;
 	end
 	HotSpringWaterTimer();
+	GiveRupees();
 end

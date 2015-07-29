@@ -70,6 +70,7 @@ MovementsHelper.PlaySong = function(songName)
 	end
 end
 
+--Helps to perfom the Reverse Camera Angle
 MovementsHelper.ReverseCameraAngle = function(saveStateSlot)
 	buttons = {};
 	savestate.loadslot(saveStateSlot);
@@ -96,4 +97,7 @@ MovementsHelper.ReverseCameraAngle = function(saveStateSlot)
 	joypad.set(buttons, 1);
 	MovementsHelper.Z64FrameAdvance();
 	gui.drawText(250, 250, "Hold Z", _, 25);
+end
+
+MovementsHelper.QuickSpin = function()
 end

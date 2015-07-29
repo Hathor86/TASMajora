@@ -46,6 +46,18 @@ MM.Watch =
 			,HeartContainer = 0x1EF6A4
 			,Owls = 0x1EF6B6
 			,Status = 0x1EF72C
+			
+			,WoodfallKeys = 0x1EF73A
+			,SnowheadKeys = 0x1EF73B
+			,GreatBayKeys = 0x1EF73C
+			,StoneTowerKeys = 0x1EF73D
+			,WoodfallFairies = 0x1EF744
+			,SnowheadFairies = 0x1EF745
+			,GreatBayFairies = 0x1EF746
+			,StoneTowerFairies = 0x1EF746
+			
+			,SwampSkulltulaToken = 0x1F0531
+			,OceansideSkulltulaToken = 0x1F0533
 		}
 	}
 	--Everything about Link
@@ -65,6 +77,8 @@ MM.Watch =
 		,CurrentMap = 0x1EF672
 		
 		,SoarCursor = 0x3FDA91
+		
+		,SwordSwing = 0x40088B
 	}
 	
 	--Misc Stuff
@@ -92,6 +106,8 @@ MM.Watch =
 		,HSW4Timer = 0x1F070E
 		,HSW5Timer = 0x1F0716
 		,HSW6Timer = 0x1F071E
+		
+		,GiveRupees = 0x1F0688
 	}
 };
 
@@ -492,6 +508,7 @@ MM.Dictionnary.Items[0xFD] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFE] = "Unreadable Fuzz";
 MM.Dictionnary.Items[0xFF] = "Empty Slot";
 
+--Still from Keet'as google docs: https://docs.google.com/spreadsheets/d/1aghnk8gTPDY6Tx1wolZARK_swoVEU9ulS2D0hS7I2Og/edit#gid=0
 MM.Dictionnary.Exits[0x0800] = "Honey & Darling";
 MM.Dictionnary.Exits[0x3800] = "Odolwa";
 MM.Dictionnary.Exits[0x6600] = "Twinmold";
@@ -500,6 +517,7 @@ MM.Dictionnary.Exits[0x4610] = "Woodfall Fairy";
 MM.Dictionnary.Exits[0x4620] = "Snowhead Fairy";
 MM.Dictionnary.Exits[0x4630] = "Zora Cap Fairy";
 MM.Dictionnary.Exits[0x4640] = "Ikana Canyon Fairy";
+MM.Dictionnary.Exits[0x8000] = "Ikana Graveyard";
 MM.Dictionnary.Exits[0x9230] = "Evan's Room";
 
 MM.Dictionnary.ExitsByName["Honey & Darling"] = 0x0800;
@@ -510,6 +528,7 @@ MM.Dictionnary.ExitsByName["Woodfall Fairy"] = 0x4610;
 MM.Dictionnary.ExitsByName["Snowhead Fairy"] = 0x4620;
 MM.Dictionnary.ExitsByName["Zora Cap Fairy"] = 0x4630;
 MM.Dictionnary.ExitsByName["Ikana Canyon Fairy"] = 0x4640;
+MM.Dictionnary.ExitsByName["Ikana Graveyard"] = 0x8000;
 MM.Dictionnary.ExitsByName["Evan's Room"] = 0x9230;
 
 --Convert an angle from Z64 engine (2 bytes) to regular degrees
