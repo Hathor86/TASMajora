@@ -343,34 +343,34 @@ AdditionalWindows.Watches.Init = function()
 	
 	x = 480;
 	y = 570;
-	editBoxes["woodK"] = EditableValue:new(form, x, y, "Woodfall keys", temple["wood"].keys, 100);
+	editBoxes["woodK"] = EditableValue:new(form, x, y, "Woodfall keys", temple["wood"].keys, 105);
 	x = x + 160;
 	editBoxes["woodF"] = EditableValue:new(form, x, y, "Fairies", temple["wood"].fairies, 50);
 	y = y + 20;
 	
 	x = 480;
-	editBoxes["snowK"] = EditableValue:new(form, x, y, "Snowhead keys", temple["snow"].keys, 100);
+	editBoxes["snowK"] = EditableValue:new(form, x, y, "Snowhead keys", temple["snow"].keys, 105);
 	x = x + 160;
 	editBoxes["snowF"] = EditableValue:new(form, x, y, "Fairies", temple["snow"].fairies, 50);
 	y = y + 20;
 	
 	x = 480;
-	editBoxes["bayK"] = EditableValue:new(form, x, y, "Great Bay keys", temple["bay"].keys, 100);
+	editBoxes["bayK"] = EditableValue:new(form, x, y, "Great Bay keys", temple["bay"].keys, 105);
 	x = x + 160;
 	editBoxes["bayF"] = EditableValue:new(form, x, y, "Fairies", temple["bay"].fairies, 50);
 	y = y + 20;
 	
 	x = 480;
-	editBoxes["stoneK"] = EditableValue:new(form, x, y, "Stone Tower keys", temple["stone"].keys, 100);
+	editBoxes["stoneK"] = EditableValue:new(form, x, y, "Stone Tower keys", temple["stone"].keys, 105);
 	x = x + 160;
 	editBoxes["stoneF"] = EditableValue:new(form, x, y, "Fairies", temple["stone"].fairies, 50);
 	y = y + 40;
 	
 	x = 480;
-	editBoxes["swampSkull"] = EditableValue:new(form, x, y, "Swamp Skull Tokens", skullHouse["swamp"], 100);
-	x = x + 160;
-	editBoxes["oceanSkull"] = EditableValue:new(form, x, y, "Ocean Skull Tokens", skullHouse["ocean"], 50);
+	editBoxes["swampSkull"] = EditableValue:new(form, x, y, "Swamp Skull Tokens", skullHouse["swamp"], 120);
 	y = y + 20;
+	editBoxes["oceanSkull"] = EditableValue:new(form, x, y, "Ocean Skull Tokens", skullHouse["ocean"], 120);
+	
 	
 	for _, item in pairs(refreshList) do 
 		refreshListCount = refreshListCount + 1;
