@@ -1,7 +1,5 @@
 local luaPath = "C:\\Data\\Programs\\Emulators\\BizHawk-1.9.4\\Lua\\N64\\";
 
-local bombsSlot = 0x1EF716;
-local magic = 0x1EF6A9;
 local cLeft = 0x1EF6BD;
 local cDown = 0x1EF6BE;
 local cRight = 0x1EF6BF;
@@ -51,7 +49,11 @@ end
 
 --Display Items
 local function items()
-	gui.text(80, firstLine - 35, memory.readbyte(magic));
+	if(memory.read_s16_be(MM.Watch.Inventory.Quests.HeartContainer) > 161) then
+		gui.text(20, firstLine - 20, memory.readbyte(MM.Watch.Link.MagicAmount));
+	else
+		gui.text(20, firstLine - 35, memory.readbyte(MM.Watch.Link.MagicAmount));
+	end
 	gui.text(0, 0, string.format("Cleft: %i cDown:%i cRight:%i", memory.readbyte(cLeft), memory.readbyte(cDown), memory.readbyte(cRight)), _, _, "topright");
 end
 

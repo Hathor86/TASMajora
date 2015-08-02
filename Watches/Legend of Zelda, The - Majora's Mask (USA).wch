@@ -1,9 +1,10 @@
 Domain RDRAM
 SystemID N64
-1EF6BC	b	h	1	RDRAM	Human B
+1EF6BC	b	h	1	RDRAM	Human B button
 1EF6BD	b	u	1	RDRAM	CLeft
 1EF6BE	b	u	1	RDRAM	CDown
 1EF6BF	b	u	1	RDRAM	CRight
+1EF674	b	s	1	RDRAM	Current Mask
 1EF6A6	w	s	1	RDRAM	Health
 1EF6A4	w	s	1	RDRAM	Heart Container
 1EF6B6	w	u	1	RDRAM	Owls Hit
@@ -12,6 +13,7 @@ SystemID N64
 1EF72A	b	h	1	RDRAM	Wallet (0; Base; 0x10 Adult; 0x20 Giant)
 1EF72B	b	s	1	RDRAM	Quiver / Bomb bag flag (0x1B => both 40)
 1EF72C	d	u	1	RDRAM	Quest Status's Flag(H.P., Boss and songs)
+1F05A9	d	u	1	RDRAM	Bombers Notebook People
 1EF73A	b	s	1	RDRAM	Woodfall Small Keys
 1EF73B	b	s	1	RDRAM	Snowhead Small Keys
 1EF73C	b	s	1	RDRAM	Great Bay Small Keys
@@ -138,4 +140,5 @@ SystemID N64
 415097	b	u	1	RDRAM	Red Twinmold Health
 22A138	w	u	1	RDRAM	Camera 1 (Unknow stuff)
 24A448	w	u	1	RDRAM	Camera 2 (Unknow stuff)
+1F0576	b	u	1	RDRAM	Chateau (0x19 for effect; flags of what else ?)
 

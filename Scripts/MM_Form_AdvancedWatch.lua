@@ -345,25 +345,25 @@ AdditionalWindows.Watches.Init = function()
 	y = 570;
 	editBoxes["woodK"] = EditableValue:new(form, x, y, "Woodfall keys", temple["wood"].keys, 105);
 	x = x + 160;
-	editBoxes["woodF"] = EditableValue:new(form, x, y, "Fairies", temple["wood"].fairies, 50);
+	editBoxes["woodF"] = EditableValue:new(form, x, y, "Fairies", temple["wood"].fairies, 55);
 	y = y + 20;
 	
 	x = 480;
 	editBoxes["snowK"] = EditableValue:new(form, x, y, "Snowhead keys", temple["snow"].keys, 105);
 	x = x + 160;
-	editBoxes["snowF"] = EditableValue:new(form, x, y, "Fairies", temple["snow"].fairies, 50);
+	editBoxes["snowF"] = EditableValue:new(form, x, y, "Fairies", temple["snow"].fairies, 55);
 	y = y + 20;
 	
 	x = 480;
 	editBoxes["bayK"] = EditableValue:new(form, x, y, "Great Bay keys", temple["bay"].keys, 105);
 	x = x + 160;
-	editBoxes["bayF"] = EditableValue:new(form, x, y, "Fairies", temple["bay"].fairies, 50);
+	editBoxes["bayF"] = EditableValue:new(form, x, y, "Fairies", temple["bay"].fairies, 55);
 	y = y + 20;
 	
 	x = 480;
 	editBoxes["stoneK"] = EditableValue:new(form, x, y, "Stone Tower keys", temple["stone"].keys, 105);
 	x = x + 160;
-	editBoxes["stoneF"] = EditableValue:new(form, x, y, "Fairies", temple["stone"].fairies, 50);
+	editBoxes["stoneF"] = EditableValue:new(form, x, y, "Fairies", temple["stone"].fairies, 55);
 	y = y + 40;
 	
 	x = 480;
@@ -380,41 +380,8 @@ AdditionalWindows.Watches.Init = function()
 	valueSetter = forms.button(form, "Set !", SetValues, 700 ,750);
 end
 
---Update read only stuff
 local function Update()
-	--local color = "white";
-	--local tab = "";
-	--local jumpCount = 0;
-	
-	--gui.text(0, firstLine, );	
-	--[[for i = 0, 5 do
-		tab = "";
-		if skulltullaCode[i] == 0 then
-			color = "red";
-		elseif skulltullaCode[i] == 1 then
-			color = "blue";
-		elseif skulltullaCode[i] == 2 then
-			color = "yellow"
-		else
-			color = "green";
-		end
-
-		if i > 0 then
-			if math.abs(skulltullaCode[i - 1] - skulltullaCode[i]) > 1
-			or (skulltullaCode[i] == 1 and skulltullaCode[i - 1] > 1)
-			or (skulltullaCode[i] == 2 and skulltullaCode[i - 1] < 2) then
-				tab = "-";
-				jumpCount = jumpCount + 1;
-			end
-		else
-			tab = "";
-		end
-		if i == 0 then
-			
-		end
-		--gui.text(currentWidth / 2.5 + i * 20, firstLine + spacing, string.format("%s%i", tab, skulltullaCode[i]), _, color);
-	end
-	--gui.text(0, firstLine + spacing, string.format("Skulltula Code (%s jumps):", jumpCount));]]
+	Load();
 	buttons = joypad.get(1);
 	
 	editBoxes["bombers"]:refresh(bombersCode);
@@ -426,6 +393,16 @@ local function Update()
 	
 	editBoxes["health"]:refresh(health);
 	editBoxes["maxHealth"]:refresh(maxHealth);
+	editBoxes["woodK"]:refresh(temple["wood"].keys);
+	editBoxes["woodF"]:refresh(temple["wood"].fairies);
+	editBoxes["snowK"]:refresh(temple["snow"].keys);
+	editBoxes["snowF"]:refresh(temple["snow"].fairies);
+	editBoxes["bayK"]:refresh(temple["bay"].keys);
+	editBoxes["bayF"]:refresh(temple["bay"].fairies);
+	editBoxes["stoneK"]:refresh(temple["stone"].keys);
+	editBoxes["stoneF"]:refresh(temple["stone"].fairies);
+	editBoxes["swampSkull"]:refresh(skullHouse["swamp"]);
+	editBoxes["oceanSkull"]:refresh(skullHouse["ocean"]);
 	
 	if(soarCursor < 11) then
 		readOnly["soar"]:refresh(MM.Dictionnary.IndexWarp[soarCursor + 1]);
@@ -442,17 +419,19 @@ local function Update()
 	readOnly["UTurn"]:refresh(string.format("X:%.0f - Y:%.0f", MM.Helper.ToCartesian(currentAngle + math.pi)));
 end
 
-AdditionalWindows.Watches.Refresh = function()
-	Load();
-	
-	if((movie.isloaded() and editMode)
-		or (not movie.isloaded() and not editMode)
-	) then
-		SwitchMode();
+--Refresh values
+--TAS mode means that everything is re-read each times
+local function TasRefresh()
+	Update();
+	for _, item in pairs(refreshList) do
+		item:refresh();
 	end
-	
-	--Playable Mode
-	--[[for idx, item in pairs(refreshList) do
+end
+
+--Refresh values
+--Alternate refresh mode. Only one value each time the loop is called; other values 1 time over 10.
+local function LightweigthRefresh()
+	for idx, item in pairs(refreshList) do
 		if(idx == currentRefresh) then
 			if(currentRefresh == refreshListCount) then
 				currentRefresh = 1;
@@ -462,13 +441,21 @@ AdditionalWindows.Watches.Refresh = function()
 			item:refresh();
 			break;
 		end
-	end]]
-	
-	--TAS Mode
-	for _, item in pairs(refreshList) do
-		item:refresh();
+	end
+	if(currentRefresh % 10 == 0) then
+		Load();
+		Update();
+	end
+end
+
+AdditionalWindows.Watches.Refresh = function()
+	if((movie.isloaded() and editMode)
+		or (not movie.isloaded() and not editMode)
+	) then
+		SwitchMode();
 	end
 	
-	Update();
+	TasRefresh();
+	--LightweigthRefresh();
 end
 Load();

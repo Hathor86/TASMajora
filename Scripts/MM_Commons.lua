@@ -44,6 +44,7 @@ MM.Watch =
 			,LotteryCode1stByte = 0x1F065F
 			,Picture1stByte = 0x1F0750
 			,HeartContainer = 0x1EF6A4
+			,MagicLength = 0x1F359E
 			,Owls = 0x1EF6B6
 			,Status = 0x1EF72C
 			
@@ -54,7 +55,7 @@ MM.Watch =
 			,WoodfallFairies = 0x1EF744
 			,SnowheadFairies = 0x1EF745
 			,GreatBayFairies = 0x1EF746
-			,StoneTowerFairies = 0x1EF746
+			,StoneTowerFairies = 0x1EF747
 			
 			,SwampSkulltulaToken = 0x1F0531
 			,OceansideSkulltulaToken = 0x1F0533
@@ -69,6 +70,7 @@ MM.Watch =
 		,Z = 0x3FFDDC
 		,YRotation = 0x3FFE6E
 		,Velocity = 0x3FFE20
+		,MagicAmount = 0x1EF6A9
 	}
 	,Status = 
 	{
@@ -113,6 +115,33 @@ MM.Watch =
 
 MM.Dictionnary =
 {
+	BombersNotebookPeople =
+	{
+		GormanBrothers = 1;
+		Shiro = 2;
+		GuruGuru = 4;
+		Bombers = 8;
+		None = 16;
+		None = 32;
+		None = 64;
+		None = 128;
+		Toto = 256;
+		Gorman = 512;
+		Postman = 1024;
+		RosaSisters = 2048;
+		TheHand = 4096;
+		GrandMother = 8192;
+		Kamaro = 16384;
+		Grog = 32768;
+		Anju = 65536;
+		Kafei = 131072;
+		KuriosityShopMan = 262144;
+		OldLady = 524288;
+		Romani = 1048576;
+		Cremia = 2097152;
+		MrDotour = 40194304;
+		MmeAroma = 8388608;
+	};
 	Items = {};
 	Exits = {};
 	ExitsByName = {};
