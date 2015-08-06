@@ -1,8 +1,8 @@
-MovieVersion BizHawk v2.0.0
-rerecordCount 14561
+﻿MovieVersion BizHawk v2.0.0
+rerecordCount 14748
 StartsFromSavestate True
 Author Hâthor
-emuVersion Version 1.9.4
+emuVersion Version 1.11.1
 Platform N64
 GameName Legend of Zelda, The - Majora's Mask (USA)
 SHA1 D6133ACE5AFAA0882CF214CF88DABA39E266C078
