@@ -1,4 +1,4 @@
-local luaPath = "C:\\Data\\Programs\\Emulators\\BizHawk-1.9.4\\Lua\\N64\\";
+local luaPath = "C:\\Data\\Programs\\Emulators\\BizHawk\\Lua\\N64\\";
 
 local cLeft = 0x1EF6BD;
 local cDown = 0x1EF6BE;

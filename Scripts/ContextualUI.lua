@@ -98,7 +98,7 @@ end
 local function GiveRupees()
 	local give = memory.read_s16_be(MM.Watch.Misc.GiveRupees);
 	if(give ~= 0) then
-		gui.text(0, 110, string.format("Giving rupees: %i", give));
+		gui.text(0, 140, string.format("Giving rupees: %i", give));
 	end
 end
 

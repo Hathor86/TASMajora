@@ -115,7 +115,7 @@ MM.Watch =
 
 MM.Dictionnary =
 {
-	BombersNotebookPeople =
+	BombersNotebookSeenPeople =
 	{
 		GormanBrothers = 1;
 		Shiro = 2;
@@ -135,12 +135,43 @@ MM.Dictionnary =
 		Grog = 32768;
 		Anju = 65536;
 		Kafei = 131072;
-		KuriosityShopMan = 262144;
+		CuriosityShopMan = 262144;
 		OldLady = 524288;
 		Romani = 1048576;
 		Cremia = 2097152;
 		MrDotour = 40194304;
 		MmeAroma = 8388608;
+	};
+	BombersNotebookViewedEvents = 
+	{
+		CircusLeaderMask = 1; --Toto + Circus Leader Ribbon
+		PostmanHat = 2;
+		CoupleMask = 4;
+		BlastMask = 8;
+		KamaroMask = 16; -- + Ribbon
+		StoneMask = 32; -- + Ribbon
+		BremenMask = 64; -- + Ribbon
+		Unknow1 = 128; --Not used?
+		ToiletHP = 256;
+		GrandMaStory1HP = 512;
+		GrandMaStory2HP = 1024;
+		PostmanHP = 2048;
+		KafeiMask = 4096;
+		AllNightMask = 8192;
+		BunnyHood = 16384; -- + Ribbon
+		GaroMask = 32768;
+		RomaniMask = 65536;
+		KeatonMask = 131072;
+		LetterToMama = 262144;
+		ChateauRomani = 524288;
+		BombersCode = 1048576;
+		BombersNotebook = 2097152;
+		DotourThanks = 4194304; -- + Ribbon
+		RosaSisterThanks = 8388608; -- + Ribbon
+		DepositLetter = 16777216;
+		PromiseToDeliverPendant = 33554432;
+		DeliverPendant = 67108864;
+		SaveSunMask = 134217728;
 	};
 	Items = {};
 	Exits = {};

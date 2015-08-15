@@ -13,7 +13,8 @@ SystemID N64
 1EF72A	b	h	1	RDRAM	Wallet (0; Base; 0x10 Adult; 0x20 Giant)
 1EF72B	b	s	1	RDRAM	Quiver / Bomb bag flag (0x1B => both 40)
 1EF72C	d	u	1	RDRAM	Quest Status's Flag(H.P., Boss and songs)
-1F05A9	d	u	1	RDRAM	Bombers Notebook People
+1F05A9	d	u	1	RDRAM	Bombers Notebook Seen People
+1F05AD	d	u	1	RDRAM	Bombers Notebook Viewed Events
 1EF73A	b	s	1	RDRAM	Woodfall Small Keys
 1EF73B	b	s	1	RDRAM	Snowhead Small Keys
 1EF73C	b	s	1	RDRAM	Great Bay Small Keys
