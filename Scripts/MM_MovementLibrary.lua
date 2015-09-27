@@ -5,6 +5,7 @@ local buttons = {};
 
 MovementsHelper.Songs["SOT"] = {"C Right", "A", "C Down", "C Right", "A", "C Down"}; --Song Of time
 MovementsHelper.Songs["SODT"] = {"C Right", "C Right", "A", "A", "C Down", "C Down"}; -- Song of Double Time
+MovementsHelper.Songs["ISOT"] = {"C Down", "A", "C Right", "C Down", "A", "C Right"}; -- Inverted Song Of Time
 MovementsHelper.Songs["SOH"] = {"C Left", "C Right", "C Down", "C Left", "C Right", "C Down"}; -- Song Of Healing
 MovementsHelper.Songs["SOE"] = {"C Up", "C Left", "C Right", "C Up", "C Left", "C Right"}; -- Song Of Epona
 MovementsHelper.Songs["SOS"] = {"C Down", "C Left", "C Up", "C Down", "C Left", "C Up"}; -- Song Of Soaring
