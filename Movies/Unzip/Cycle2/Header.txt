@@ -1,5 +1,5 @@
 MovieVersion BizHawk v2.0.0
-rerecordCount 20035
+rerecordCount 20380
 StartsFromSavestate True
 Author Hâthor
 emuVersion Version 1.11.1
