@@ -42,5 +42,5 @@ Against a cost of little time spent (that's what I try to measure), I can collec
 => Collect 50 from dodongo
 
 --- Drafts
-98221
-29860
+109161
+40957
