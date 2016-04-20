@@ -12,6 +12,8 @@ H&D2 Save about 44 frames (51:81 vs 51:37)
 
 5075 frames ahead from WR@Goron Mask
 
+700 frames saved when console reset (On Emu)
+
 -- Misc
 Resync tips: Add 1 frame before start - But hover fail
 Mountain village bridge shorter than by lake
@@ -22,24 +24,5 @@ Aliens => 2h30 AM; End => 03:49:15
 Sunmask skip => 1 bomb 7chus 1 backflip
 312/234
 
-Rupees:
-
-To buy:
-Tingle maps (45 rupees) and red potion (30 rupees)
-
-I have now 50 rupees. I can collect without losing time
-* 50 rupees from Deku Game
-* 70 rupees where Dampé stands (50 in the pot and 20 shure from the Wallmaster)
-* 20 rupees under the graveyard (on the way to the first Iron Knuckle who gives a H.P.)
-* 40 rupees bottle dupe
-
-Against a cost of little time spent (that's what I try to measure), I can collect:
-* those 60 rupees (or 40 or 20)
-* there are 6 green rupees surrounding the red one under the graveyard
-* 100 rupees when beating dodongo's to get the H.P (or 50 if I collect only one rupee)
-* 200 rupees bottle dupe
-
-=> Collect 50 from dodongo
 
 --- Drafts
-624 819
